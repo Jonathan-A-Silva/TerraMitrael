@@ -12,9 +12,12 @@ public interface MaterialType {
 
     MagicStats getMagicStats();
 
-    boolean canBeBlade();
+    boolean likeBlade();
 
-    boolean canBeGuard();
+    boolean likeGuard();
 
-    boolean canBeHandle();
+    boolean likeHandle();
+
+    int getDurability();
+
 }

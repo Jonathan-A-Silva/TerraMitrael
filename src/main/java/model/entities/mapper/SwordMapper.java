@@ -9,22 +9,20 @@ public class SwordMapper implements Mapper<Sword, PersistenceSword> {
     @Override
     public Sword toDomain(PersistenceSword entity) {
         return new Sword(
-                entity.getId(),
-                entity.getNome(),
-                entity.getDescription(),
                 entity.getSwordType(),
-                entity.getMetal()
+                entity.getBlade(),
+                entity.getGuard(),
+                entity.getHandler()
         );
     }
 
     @Override
     public PersistenceSword toEntity(Sword domain) {
         return new PersistenceSword(
-                domain.getId(),
-                domain.getNome(),
-                domain.getDescription(),
                 domain.getSwordType(),
-                domain.getMetals()
+                domain.getBlade(),
+                domain.getGuard(),
+                domain.getHandler()
         );
     }
 }

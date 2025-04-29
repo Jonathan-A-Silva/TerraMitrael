@@ -1,59 +1,83 @@
 package model.entities.domain.sword;
 
 import model.entities.domain.weapon.Weapon;
-import model.enums.Metals;
 import model.enums.SwordType;
+import model.interfaces.MaterialType;
 
 public class Sword extends Weapon {
 
-    private SwordType swordType;
-    private Metals metals;
+    private final SwordType swordType;
+    private final MaterialType blade;
+    private final MaterialType guard;
+    private final MaterialType handler;
 
-    public Sword(String nome, String description, SwordType swordType, Metals metals) {
+    public Sword(SwordType swordType, MaterialType blade, MaterialType guard, MaterialType handler) {
         super(
-                nome,
-                description,
-                swordType.getAttackDamage() + metals.getAttackDamage(),
-                swordType.getAttackSpeed() + metals.getAttackSpeed(),
-                swordType.getCriticalChance() + metals.getCriticalChance(),
-                swordType.getCriticalDamage() + metals.getCriticalDamage(),
-                swordType.getDurability() + metals.getDurability(),
+                swordType.name(),
+                "Descrição qualquer",
+                calculateAttackDamage(blade, guard, handler),
+                calculateAttackSpeed(blade, guard, handler),
+                calculateCriticalChance(blade, guard, handler),
+                calculateCriticalDamage(blade, guard, handler),
+                calculateDurability(blade, guard, handler),
                 swordType.getDamageTypes()
         );
-        this.swordType = swordType;
-        this.metals = metals;
+
+        if (blade.likeBlade() && guard.likeGuard() && handler.likeHandle()) {
+            this.swordType = swordType;
+            this.blade = blade;
+            this.guard = guard;
+            this.handler = handler;
+        }else {
+            throw new IllegalArgumentException("Os materiais escolhidos não são compatíveis para montar a espada!");
+        }
+
     }
 
-    public Sword(long id, String nome, String description, SwordType swordType, Metals metals) {
-        super(
-                nome,
-                description,
-                swordType.getAttackDamage() + metals.getAttackDamage(),
-                swordType.getAttackSpeed() + metals.getAttackSpeed(),
-                swordType.getCriticalChance() + metals.getCriticalChance(),
-                swordType.getCriticalDamage() + metals.getCriticalDamage(),
-                swordType.getDurability() + metals.getDurability(),
-                swordType.getDamageTypes()
-        );
-        super.setId(id);
-        this.swordType = swordType;
-        this.metals = metals;
+    private static double calculateAttackDamage(MaterialType blade, MaterialType guard, MaterialType handle) {
+        return blade.getAttackStats().getDamage()
+                + guard.getAttackStats().getDamage()
+                + handle.getAttackStats().getDamage();
+    }
+
+    private static double calculateAttackSpeed(MaterialType blade, MaterialType guard, MaterialType handle) {
+        return blade.getAttackStats().getSpeed()
+                + guard.getAttackStats().getSpeed()
+                + handle.getAttackStats().getSpeed();
+    }
+
+    private static double calculateCriticalChance(MaterialType blade, MaterialType guard, MaterialType handle) {
+        return blade.getAttackStats().getCriticalChance()
+                + guard.getAttackStats().getCriticalChance()
+                + handle.getAttackStats().getCriticalChance();
+    }
+
+    private static double calculateCriticalDamage(MaterialType blade, MaterialType guard, MaterialType handle) {
+        return blade.getAttackStats().getCriticalDamage()
+                + guard.getAttackStats().getCriticalDamage()
+                + handle.getAttackStats().getCriticalDamage();
+    }
+
+    private static double calculateDurability(MaterialType blade, MaterialType guard, MaterialType handle) {
+        return blade.getDurability()
+                + guard.getDurability()
+                + handle.getDurability();
     }
 
     public SwordType getSwordType() {
         return swordType;
     }
 
-    public void setSwordType(SwordType swordType) {
-        this.swordType = swordType;
+    public MaterialType getBlade() {
+        return blade;
     }
 
-    public Metals getMetals() {
-        return metals;
+    public MaterialType getGuard() {
+        return guard;
     }
 
-    public void setMetals(Metals metals) {
-        this.metals = metals;
+    public MaterialType getHandler() {
+        return handler;
     }
 
 }

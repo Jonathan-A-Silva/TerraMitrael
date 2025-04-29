@@ -1,9 +1,14 @@
 package model.entities.persistence.sword;
 
-import javax.persistence.*;
-import model.enums.Metals;
-import model.enums.SwordType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+
 import model.entities.persistence.item.PersistenceItem;
+import model.enums.SwordType;
+import model.interfaces.MaterialType;
 
 @Entity
 @Table(name = "swords")
@@ -14,16 +19,34 @@ public class PersistenceSword extends PersistenceItem {
     private SwordType swordType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "metal", nullable = false)
-    private Metals metal;
+    @Column(name = "blade_metal", nullable = false)
+    private MaterialType blade;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "guard_metal", nullable = false)
+    private MaterialType guard;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "handler_metal", nullable = false)
+    private MaterialType handler;
 
     public PersistenceSword() {
     }
 
-    public PersistenceSword(Long id, String nome, String description, SwordType swordType, Metals metal) {
-        super(id, nome, description);
+    public PersistenceSword(SwordType swordType, MaterialType blade, MaterialType guard, MaterialType handler) {
+        super(swordType.name(), "Teste");
         this.swordType = swordType;
-        this.metal = metal;
+        this.blade = blade;
+        this.guard = guard;
+        this.handler = handler;
+    }
+
+    public PersistenceSword(long id, SwordType swordType, MaterialType blade, MaterialType guard, MaterialType handler) {
+        super(id, swordType.name(), "Teste");
+        this.swordType = swordType;
+        this.blade = blade;
+        this.guard = guard;
+        this.handler = handler;
     }
 
     public SwordType getSwordType() {
@@ -34,11 +57,28 @@ public class PersistenceSword extends PersistenceItem {
         this.swordType = swordType;
     }
 
-    public Metals getMetal() {
-        return metal;
+    public MaterialType getBlade() {
+        return blade;
     }
 
-    public void setMetal(Metals metal) {
-        this.metal = metal;
+    public void setBlade(MaterialType blade) {
+        this.blade = blade;
     }
+
+    public MaterialType getGuard() {
+        return guard;
+    }
+
+    public void setGuard(MaterialType guard) {
+        this.guard = guard;
+    }
+
+    public MaterialType getHandler() {
+        return handler;
+    }
+
+    public void setHandler(MaterialType handler) {
+        this.handler = handler;
+    }
+
 }

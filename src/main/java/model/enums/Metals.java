@@ -22,8 +22,8 @@ public enum Metals implements MaterialType {
             null,
             true,
             true,
-            true
-            140,
+            true,
+            140
     ),
     STEEL(
             new AttackStats(1.5, 1.2, 15, 3),
@@ -41,9 +41,10 @@ public enum Metals implements MaterialType {
     private final boolean canBeBlade;
     private final boolean canBeGuard;
     private final boolean canBeHandle;
-    private final double durability;
+    private final int durability;
 
-    Metals(AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats, boolean canBeBlade, boolean canBeGuard, boolean canBeHandle, double durability) {
+    Metals(AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats,
+           boolean canBeBlade, boolean canBeGuard, boolean canBeHandle, int durability) {
         this.attackStats = attackStats;
         this.defenseStats = defenseStats;
         this.magicStats = magicStats;
@@ -69,21 +70,21 @@ public enum Metals implements MaterialType {
     }
 
     @Override
-    public boolean canBeBlade() {
+    public boolean likeBlade() {
         return canBeBlade;
     }
 
     @Override
-    public boolean canBeGuard() {
+    public boolean likeGuard() {
         return canBeGuard;
     }
 
     @Override
-    public boolean canBeHandle() {
+    public boolean likeHandle() {
         return canBeHandle;
     }
 
-    public double getDurability() {
+    public int getDurability() {
         return durability;
     }
 

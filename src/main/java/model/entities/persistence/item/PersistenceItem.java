@@ -24,6 +24,11 @@ public class PersistenceItem {
     public PersistenceItem() {
     }
 
+    public PersistenceItem(String nome, String description) {
+        this.nome = nome;
+        this.description = description;
+    }
+
     public PersistenceItem(Long id, String nome, String description) {
         this.id = id;
         this.nome = nome;
