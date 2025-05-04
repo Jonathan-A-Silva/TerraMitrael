@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    z-index: 1;
+}
+
+.navbar {
+    display: flex;
+    background-color: #5a4ff183;
+    color: white;
+    padding: 0 20px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+button.menu {
+    display: flex;
+    position: fixed;
+    left: 10px;
+    font-size: 32px;
+    margin-right: 10px;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 20%;
+    color: white;
+}
+
+button.menu:hover {
+    border: 3px solid #fdfb8e;
+    left: 7px;
+    ;
+    position: fixed;
+}
+
+
+.login {
+    font-size: 24px;
+    margin-left: auto;
+}
+
+.login a {
+    margin: 8px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.login a:hover {
+    color: #fdfb8e;
+}
+
+.login a img {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #b1b1b1;
+}
+
+.menu-hamburger {
+    position: absolute;
+    top: auto;
+    left: 0px;
+    ;
+    width: 250px;
+    background-color: #444;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease-out;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.menu-hamburger.active {
+    transform: scaleY(1);
+}
+
+.menu-hamburger ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-hamburger li {
+    margin: 15px 0;
+}
+
+.menu-hamburger li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+
+.menu-hamburger li a:hover {
+    background-color: #555;
+}

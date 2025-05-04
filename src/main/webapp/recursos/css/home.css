@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.pagina {
+    display: flex;
+    justify-content: center;
+    height: 70%;
+    max-height: 100%;
+}
+
+.pagina::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../imagens/home.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(40%) blur(0.5vh);
+    z-index: 0;
+}

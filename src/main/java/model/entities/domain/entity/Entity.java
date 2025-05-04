@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import model.enums.Class;
-import modelo.enums.Status;
+import model.enums.Status;
 
 public class Entity {
 

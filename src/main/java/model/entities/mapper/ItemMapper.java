@@ -19,7 +19,7 @@ public class ItemMapper implements Mapper<Item, PersistenceItem> {
     public PersistenceItem toEntity(Item item) {
         return new PersistenceItem(
                 item.getId(),
-                item.getNome(),
+                item.getName(),
                 item.getDescription()
         );
     }

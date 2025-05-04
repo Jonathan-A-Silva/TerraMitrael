@@ -6,6 +6,10 @@ import model.entities.domain.stats.magicalstats.MagicStats;
 
 public interface MaterialType {
 
+    String getName();
+
+    String getDescription();
+
     AttackStats getAttackStats();
 
     DefenseStats getDefenseStats();

@@ -1,4 +1,4 @@
-package modelo.enums;
+package model.enums;
 
 import java.util.Arrays;
 import java.util.EnumMap;

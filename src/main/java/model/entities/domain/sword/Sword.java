@@ -13,13 +13,13 @@ public class Sword extends Weapon {
 
     public Sword(SwordType swordType, MaterialType blade, MaterialType guard, MaterialType handler) {
         super(
-                swordType.name(),
-                "Descrição qualquer",
-                calculateAttackDamage(blade, guard, handler),
-                calculateAttackSpeed(blade, guard, handler),
-                calculateCriticalChance(blade, guard, handler),
-                calculateCriticalDamage(blade, guard, handler),
-                calculateDurability(blade, guard, handler),
+                swordType.getName(),
+                swordType.getDescription(),
+                calculateAttackDamage(swordType, blade, guard, handler),
+                calculateAttackSpeed(swordType, blade, guard, handler),
+                calculateCriticalChance(swordType, blade, guard, handler),
+                calculateCriticalDamage(swordType, blade, guard, handler),
+                calculateDurability(swordType, blade, guard, handler),
                 swordType.getDamageTypes()
         );
 
@@ -28,40 +28,44 @@ public class Sword extends Weapon {
             this.blade = blade;
             this.guard = guard;
             this.handler = handler;
-        }else {
-            throw new IllegalArgumentException("Os materiais escolhidos não são compatíveis para montar a espada!");
+        } else {
+            throw new IllegalArgumentException("The selected materials are not compatible to assemble a sword!");
         }
-
     }
 
-    private static double calculateAttackDamage(MaterialType blade, MaterialType guard, MaterialType handle) {
-        return blade.getAttackStats().getDamage()
+    private static double calculateAttackDamage(SwordType type, MaterialType blade, MaterialType guard, MaterialType handle) {
+        double base = blade.getAttackStats().getDamage()
                 + guard.getAttackStats().getDamage()
                 + handle.getAttackStats().getDamage();
+        return base * type.getAttack_damage_multiplier();
     }
 
-    private static double calculateAttackSpeed(MaterialType blade, MaterialType guard, MaterialType handle) {
-        return blade.getAttackStats().getSpeed()
+    private static double calculateAttackSpeed(SwordType type, MaterialType blade, MaterialType guard, MaterialType handle) {
+        double base = blade.getAttackStats().getSpeed()
                 + guard.getAttackStats().getSpeed()
                 + handle.getAttackStats().getSpeed();
+        return base * type.getAttack_speed_multiplier();
     }
 
-    private static double calculateCriticalChance(MaterialType blade, MaterialType guard, MaterialType handle) {
-        return blade.getAttackStats().getCriticalChance()
+    private static double calculateCriticalChance(SwordType type, MaterialType blade, MaterialType guard, MaterialType handle) {
+        double base = blade.getAttackStats().getCriticalChance()
                 + guard.getAttackStats().getCriticalChance()
                 + handle.getAttackStats().getCriticalChance();
+        return base * type.getCritical_chance_multiplier();
     }
 
-    private static double calculateCriticalDamage(MaterialType blade, MaterialType guard, MaterialType handle) {
-        return blade.getAttackStats().getCriticalDamage()
+    private static double calculateCriticalDamage(SwordType type, MaterialType blade, MaterialType guard, MaterialType handle) {
+        double base = blade.getAttackStats().getCriticalDamage()
                 + guard.getAttackStats().getCriticalDamage()
                 + handle.getAttackStats().getCriticalDamage();
+        return base * type.getCritical_damage_multiplier();
     }
 
-    private static double calculateDurability(MaterialType blade, MaterialType guard, MaterialType handle) {
-        return blade.getDurability()
+    private static double calculateDurability(SwordType type, MaterialType blade, MaterialType guard, MaterialType handle) {
+        double base = blade.getDurability()
                 + guard.getDurability()
                 + handle.getDurability();
+        return base * type.getDurability_multiplier();
     }
 
     public SwordType getSwordType() {

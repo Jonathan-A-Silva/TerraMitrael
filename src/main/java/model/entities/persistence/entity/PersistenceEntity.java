@@ -14,11 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.Table;
 
 import model.enums.Class;
-import modelo.enums.Status;
+import model.enums.Status;
 
 @Entity
+@Table(name = "persistence_entity") // Se quiser nomear explicitamente
 public class PersistenceEntity {
 
     @Id
@@ -45,23 +47,13 @@ public class PersistenceEntity {
     @CollectionTable(name = "entidade_status", joinColumns = @JoinColumn(name = "entidade_id"))
     @MapKeyEnumerated(EnumType.STRING)
     @Column(name = "valor")
-    private Map<Status, Float> statusMap;
+    private Map<Status, Float> statusMap = new EnumMap<>(Status.class);
 
     public PersistenceEntity() {
-        statusMap = new EnumMap<>(Status.class);
     }
 
     public PersistenceEntity(Long id, String name, float life, float stamina, float mana, Class entityClass, Map<Status, Float> statusMap) {
         this.id = id;
-        this.name = name;
-        this.life = life;
-        this.stamina = stamina;
-        this.mana = mana;
-        this.entityClass = entityClass;
-        this.statusMap = statusMap;
-    }
-
-    public PersistenceEntity(String name, float life, float stamina, float mana, Class entityClass, Map<Status, Float> statusMap) {
         this.name = name;
         this.life = life;
         this.stamina = stamina;

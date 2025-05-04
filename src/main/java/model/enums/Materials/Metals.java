@@ -1,4 +1,4 @@
-package model.enums;
+package model.enums.Materials;
 
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
@@ -8,6 +8,8 @@ import model.interfaces.MaterialType;
 public enum Metals implements MaterialType {
 
     COPPER(
+            "Copper",
+            "test",
             new AttackStats(0.5, 0.7, 7, 1),
             new DefenseStats(1, 1, 0.2),
             null,
@@ -17,24 +19,30 @@ public enum Metals implements MaterialType {
             60
     ),
     IRON(
+            "Iron",
+            "test",
             new AttackStats(1.0, 1.0, 10, 2),
             new DefenseStats(2, 1.5, 0.5),
             null,
             true,
             true,
-            true,
+            false,
             140
     ),
     STEEL(
+            "Steel",
+            "test",
             new AttackStats(1.5, 1.2, 15, 3),
             new DefenseStats(3, 2, 0.7),
             null,
             true,
             true,
-            true,
+            false,
             320
     );
 
+    private final String name;
+    private final String description;
     private final AttackStats attackStats;
     private final DefenseStats defenseStats;
     private final MagicStats magicStats;
@@ -43,8 +51,10 @@ public enum Metals implements MaterialType {
     private final boolean canBeHandle;
     private final int durability;
 
-    Metals(AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats,
+    Metals(String name, String description1, AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats,
            boolean canBeBlade, boolean canBeGuard, boolean canBeHandle, int durability) {
+        this.name = name;
+        this.description = description1;
         this.attackStats = attackStats;
         this.defenseStats = defenseStats;
         this.magicStats = magicStats;
@@ -52,6 +62,14 @@ public enum Metals implements MaterialType {
         this.canBeGuard = canBeGuard;
         this.canBeHandle = canBeHandle;
         this.durability = durability;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

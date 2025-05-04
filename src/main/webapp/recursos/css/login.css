@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbff;
+}
+
+h1 {
+    display: flex;
+    z-index: 1;
+    margin-top: 7vh;
+    font-size: 48px;
+}
+
+#mensagem {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #e74c3c;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.pagina {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.pagina::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../imagens/login.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(0.75vh);
+    filter: grayscale(80%);
+    z-index: 0;
+}
+
+form {
+    display: flex;
+    position: absolute;
+    width: 410px;
+    height: 375px;
+    box-shadow: 2px 2px 2px 2px #00000085;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #261e2bee;
+    border-radius: 18px;
+    margin-top: 30vh;
+    z-index: 1;
+}
+
+img {
+    display: flex;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    bottom: 60px;
+    z-index: 2;
+    background-color: #34283db6;
+    border-radius: 50%;
+    border: 4px solid #1d1d1dab;
+}
+
+.credenciais {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    bottom: 30px;
+}
+
+form label {
+    display: flex;
+    position: relative;
+    bottom: 48px;
+    padding: auto;
+    text-align: center;
+    color: red;
+}
+
+input[type="text"],
+input[type="password"] {
+    display: flex;
+    border: none;
+    padding-left: 15px;
+    width: 250px;
+    height: 35px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    border-radius: 6px;
+    background-color: #291f30b6;
+    color: #b1b1b1;
+}
+
+input[type="submit"] {
+    width: 200px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 8px;
+    color: #b1b1b1;
+    background-color: #342c9cc4;
+}
+
+input[type="submit"]:hover {
+    color: #000;
+    background-color: #d8cd6cd3;
+}

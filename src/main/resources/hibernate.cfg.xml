@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/RPG?createDatabaseIfNotExist=true&amp;serverTimezone=GMT-3&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.characterEncoding">UTF-8</property>
+        <property name="hibernate.connection.CharSet">UTF-8</property>
+        <mapping class="model.entities.persistence.entity.PersistenceEntity"/>
+        <mapping class="model.entities.persistence.image.Image"/>
+        <mapping class="model.entities.persistence.person.Person"/>
+        <mapping class="model.entities.persistence.user.User"/>
+    </session-factory>
+</hibernate-configuration>

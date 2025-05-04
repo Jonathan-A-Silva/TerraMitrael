@@ -3,17 +3,17 @@ package model.entities.domain.item;
 public class Item {
 
     private long id;
-    private String nome;
+    private String name;
     private String description;
 
-    public Item(String nome, String description) {
-        this.nome = nome;
+    public Item(String name, String description) {
+        this.name = name;
         this.description = description;
     }
 
-    public Item(long id, String nome, String description) {
+    public Item(long id, String name, String description) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.description = description;
     }
 
@@ -25,12 +25,12 @@ public class Item {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
