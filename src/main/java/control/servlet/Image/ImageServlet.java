@@ -20,7 +20,7 @@ import model.entities.persistence.image.Image;
 import model.entities.persistence.user.User;
 
 @MultipartConfig
-@WebServlet(urlPatterns = {"/save-image", "/show-user-image"})
+@WebServlet(urlPatterns = {"/save-image", "/show-user-image", "/show-user-image-nickname"})
 public class ImageServlet extends HttpServlet {
 
     private ImageDAO ImageDAO;
@@ -39,6 +39,7 @@ public class ImageServlet extends HttpServlet {
             switch (action) {
                 case "/save-image" -> saveUserImage(request, response);
                 case "/show-user-image" -> showUserImage(request, response);
+                case "/show-user-image-nickname" -> showUserImageNickname(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,6 +84,20 @@ public class ImageServlet extends HttpServlet {
         try {
             User User = (User) session.getAttribute("User");
             ImageRecuperada = ImageDAO.getImageForUserNickname(User.getNickname());
+        } catch (Exception e) {
+            ImageRecuperada = null;
+        }
+
+        showImage(response, ImageRecuperada);
+
+    }
+
+    private void showUserImageNickname(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Image ImageRecuperada;
+        String nickname = request.getParameter("nickname");
+
+        try {
+            ImageRecuperada = ImageDAO.getImageForUserNickname(nickname);
         } catch (Exception e) {
             ImageRecuperada = null;
         }

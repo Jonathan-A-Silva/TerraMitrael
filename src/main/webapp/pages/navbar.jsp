@@ -18,7 +18,7 @@
                 <div class="login">
                     <c:choose>
                         <c:when test="${not empty sessionScope.User}">
-                            <a href="${pageContext.request.contextPath}/perfil">
+                            <a href="${pageContext.request.contextPath}/profile?nickname=${User.nickname}">
                                 <img src="${pageContext.request.contextPath}/show-user-image" alt="User-Image">
                             </a>
                         </c:when>

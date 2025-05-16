@@ -18,7 +18,7 @@ import model.entities.persistence.user.User;
 import org.mindrot.jbcrypt.BCrypt;
 import util.ResponseJson;
 
-@WebServlet(urlPatterns = {"/home", "/login", "/login-user", "/logout", "/register", "/register-user"})
+@WebServlet(urlPatterns = {"/home", "/login", "/login-user", "/logout", "/register", "/register-user", "/profile"})
 public class UserServlet extends HttpServlet {
 
     private final Gson json = new Gson();
@@ -43,6 +43,7 @@ public class UserServlet extends HttpServlet {
                 case "/logout" -> logout(request, response);
                 case "/register" -> registerPage(request, response);
                 case "/register-user" -> registerUser(request, response);
+                case "/profile" -> profileUser(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,4 +126,13 @@ public class UserServlet extends HttpServlet {
 
     }
 
+    private void profileUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String nickname = request.getParameter("nickname");
+
+        User user = userDAO.getUserForNickname(nickname);
+
+        request.setAttribute("user", user);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/profile.jsp");
+        dispatcher.forward(request, response);
+    }
 }
