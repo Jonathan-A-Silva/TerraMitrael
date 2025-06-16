@@ -18,7 +18,7 @@
 
                 <form id="login">
 
-                    <img src="${pageContext.request.contextPath}/recursos/imagens/usuario.png">
+                    <img src="${pageContext.request.contextPath}/recursos/imagens/user.png">
 
                     <div class="credenciais">
                         <input type="text" name="nickname" placeholder="Apelido" required>

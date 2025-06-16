@@ -32,7 +32,6 @@ button.menu {
 button.menu:hover {
     border: 3px solid #fdfb8e;
     left: 7px;
-    ;
     position: fixed;
 }
 

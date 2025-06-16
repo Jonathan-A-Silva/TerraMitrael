@@ -4,47 +4,76 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import model.entities.persistence.image.Image;
-import model.entities.persistence.person.Person;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import model.entities.persistence.encryption.Encryption;
+import model.entities.persistence.image.Image;
+import model.entities.persistence.person.Person;
+
 @Entity
 @Table(name = "user")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private long id;
+
     @Column(name = "nickname", length = 32, nullable = false, unique = true)
     private String nickname;
 
     @Column(name = "password", length = 60, nullable = false)
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "image_id")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Image image;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Person> persons = new ArrayList<>();
 
-    public User() {}
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "encryption_id", nullable = false, referencedColumnName = "encryption_id")
+    private Encryption encryption;
 
-    public User(String nickname, String password) {
-        this.nickname = nickname;
-        this.password = password;
+    public User() {
     }
 
-    public User(String nickname, String password, Image image) {
+    public User(String nickname, String password, Encryption encryption) {
         this.nickname = nickname;
-        this.password = password;
+        this.password = encryption.encrypt(password);
+        this.encryption = encryption;
+    }
+
+    public User(String nickname, String password, Image image, Encryption encryption) {
+        this.nickname = nickname;
+        this.password = encryption.encrypt(password);
         this.image = image;
+        this.encryption = encryption;
+    }
+
+    public User(long id, String nickname, String password, Encryption encryption) {
+        this.id = id;
+        this.nickname = nickname;
+        this.password = encryption.encrypt(password);
+        this.encryption = encryption;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNickname() {
@@ -59,8 +88,12 @@ public class User {
         return password;
     }
 
+    public String getDecryptedPassword() {
+        return encryption.decrypt(password);
+    }
+
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encryption.encrypt(password);
     }
 
     public Image getImage() {
@@ -79,16 +112,19 @@ public class User {
         this.persons = persons;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(nickname, user.nickname) && Objects.equals(password, user.password) && Objects.equals(image, user.image) && Objects.equals(persons, user.persons);
+    public Encryption getEncryption() {
+        return encryption;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(nickname, password, image, persons);
+    public void setEncryption(Encryption encryption) {
+        this.encryption = encryption;
+    }
+
+    public boolean credentialsEquals(User other) {
+        if (this == other) return true;
+        if (other == null) return false;
+
+        return Objects.equals(this.nickname, other.nickname) && Objects.equals(this.password, other.password);
     }
 
 }

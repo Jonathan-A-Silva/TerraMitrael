@@ -19,7 +19,13 @@ class SwordTest {
         Sword sword = new Sword(SwordType.CLAYMORE, iron, iron, pine);
 
         Weapon test = sword;
-        System.out.println(test.getAttack_damage());
+        System.out.println("Name: " + test.getName());
+        System.out.println("Description:" + test.getDescription());
+        System.out.println("Damage: " + test.getAttack_damage());
+        System.out.println("Speed: " + test.getAttack_speed());
+        System.out.println("Critical Chance: " + test.getCritical_chance());
+        System.out.println("Critical Damage: " + test.getCritical_damage());
+        System.out.println("DamageTypes: " + test.getDamageType());
         assertTrue(test.getAttack_damage() > 0);
 
     }

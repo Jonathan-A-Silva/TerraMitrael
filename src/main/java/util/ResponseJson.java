@@ -10,4 +10,9 @@ public class ResponseJson {
         this.mensagem = mensagem;
     }
 
+    public ResponseJson(boolean sucesso) {
+        this.sucesso = sucesso;
+        this.mensagem = "";
+    }
+
 }

@@ -7,6 +7,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Profile</title>
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/css/profile.css">
         </head>
 
         <body>
@@ -18,16 +19,29 @@
             <div class="pagina">
 
                 <div class="profile">
-                    
-                    <div class="profile-img">
-                        <img src="${pageContext.request.contextPath}/show-user-image-nickname?nickname=${user.nickname}" alt="profile">
-                    </div>
 
-                    <p>${user.nickname}</p>
+                    <c:choose>
+                        <c:when
+                            test="${not empty sessionScope.User && sessionScope.User.nickname == userprofile.nickname}">
+                            <input type="button" value="Edit" id="edit-button">
+                        </c:when>
+                    </c:choose>
+
+                    <form id="profile-form" enctype="multipart/form-data" method="post">
+                        <div class="profile-layout">
+                            <div id="mensagem"></div>
+                            <img src="${pageContext.request.contextPath}/show-user-image-nickname?nickname=${userprofile.nickname}" alt="profile">
+                            <input type="file" id="image" name="profile-image" style="visibility: hidden;">
+                            <input type="text" id="p-ninkname" name="profile-nickname" value="${userprofile.nickname}" readonly>
+                            <input type="text" id="input-ninkname" name="profile-nickname-edit" value="${userprofile.nickname}">
+                        </div>
+                    </form>
 
                 </div>
 
             </div>
+
+            <script src="${pageContext.request.contextPath}/recursos/scripts/profile.js"></script>
 
         </body>
 

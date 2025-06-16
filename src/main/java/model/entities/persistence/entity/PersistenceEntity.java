@@ -20,7 +20,7 @@ import model.enums.Class;
 import model.enums.Status;
 
 @Entity
-@Table(name = "persistence_entity") // Se quiser nomear explicitamente
+@Table(name = "persistence_entity")
 public class PersistenceEntity {
 
     @Id
@@ -30,11 +30,20 @@ public class PersistenceEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "max_life", nullable = false)
+    private float max_life;
+
     @Column(name = "life", nullable = false)
     private float life;
 
+    @Column(name = "max_stamina", nullable = false)
+    private float max_stamina;
+
     @Column(name = "stamina", nullable = false)
     private float stamina;
+
+    @Column(name = "max_mana", nullable = false)
+    private float max_mana;
 
     @Column(name = "mana", nullable = false)
     private float mana;
@@ -50,6 +59,31 @@ public class PersistenceEntity {
     private Map<Status, Float> statusMap = new EnumMap<>(Status.class);
 
     public PersistenceEntity() {
+    }
+
+    public PersistenceEntity(String name, float max_life, float life, float max_stamina, float stamina, float max_mana, float mana, Class entityClass, Map<Status, Float> statusMap) {
+        this.name = name;
+        this.max_life = max_life;
+        this.life = life;
+        this.max_stamina = max_stamina;
+        this.stamina = stamina;
+        this.max_mana = max_mana;
+        this.mana = mana;
+        this.entityClass = entityClass;
+        this.statusMap = statusMap;
+    }
+
+    public PersistenceEntity(Long id, String name, float max_life, float life, float max_stamina, float stamina, float max_mana, float mana, Class entityClass, Map<Status, Float> statusMap) {
+        this.id = id;
+        this.name = name;
+        this.max_life = max_life;
+        this.life = life;
+        this.max_stamina = max_stamina;
+        this.stamina = stamina;
+        this.max_mana = max_mana;
+        this.mana = mana;
+        this.entityClass = entityClass;
+        this.statusMap = statusMap;
     }
 
     public PersistenceEntity(Long id, String name, float life, float stamina, float mana, Class entityClass, Map<Status, Float> statusMap) {
@@ -78,6 +112,14 @@ public class PersistenceEntity {
         this.name = name;
     }
 
+    public float getMax_life() {
+        return max_life;
+    }
+
+    public void setMax_life(float max_life) {
+        this.max_life = max_life;
+    }
+
     public float getLife() {
         return life;
     }
@@ -86,12 +128,28 @@ public class PersistenceEntity {
         this.life = life;
     }
 
+    public float getMax_stamina() {
+        return max_stamina;
+    }
+
+    public void setMax_stamina(float max_stamina) {
+        this.max_stamina = max_stamina;
+    }
+
     public float getStamina() {
         return stamina;
     }
 
     public void setStamina(float stamina) {
         this.stamina = stamina;
+    }
+
+    public float getMax_mana() {
+        return max_mana;
+    }
+
+    public void setMax_mana(float max_mana) {
+        this.max_mana = max_mana;
     }
 
     public float getMana() {
@@ -117,5 +175,4 @@ public class PersistenceEntity {
     public void setStatusMap(Map<Status, Float> statusMap) {
         this.statusMap = statusMap;
     }
-
 }

@@ -1,15 +1,17 @@
 package model.entities.persistence.image;
 
-import model.entities.persistence.user.User;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import model.entities.persistence.user.User;
 
 @Entity
 @Table(name = "image")
@@ -27,7 +29,8 @@ public class Image {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @OneToOne(mappedBy = "image")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
     public Image() {
