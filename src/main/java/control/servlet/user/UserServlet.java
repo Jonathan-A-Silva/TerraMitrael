@@ -74,27 +74,29 @@ public class UserServlet extends HttpServlet {
     }
 
     private void loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String nickname = request.getParameter("nickname");
+        String email_nick = request.getParameter("nickname");
         String password = request.getParameter("password");
 
         ResponseJson responseJson;
 
-        if (nickname == null || nickname.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+        if (email_nick == null || email_nick.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             responseJson = new ResponseJson(false, "Você precisa preencher as credenciais.");
         } else {
-            User user;
-            User loginUser;
+            User user = null;
+            User loginUser = null;
 
             try {
-                user = userDAO.getUserForNickname(nickname);
+                user = userDAO.getUserForNickname(email_nick);
+
+                if (user == null) {
+                    user = userDAO.getUserForEmail(email_nick);
+                }
+
                 Encryption encryption = encryptionDAO.getEncryptionByUserId(user.getId());
-                loginUser = new User(nickname, password, encryption);
+
+                loginUser = new User(user.getEmail(), user.getNickname(), password, encryption);
             } catch (Exception e) {
-                responseJson = new ResponseJson(false, "Credenciais inválidas.");
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json.toJson(responseJson));
-                return;
+                e.printStackTrace();
             }
 
             if (loginUser.credentialsEquals(user)) {

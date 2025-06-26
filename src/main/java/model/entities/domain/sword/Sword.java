@@ -2,6 +2,7 @@ package model.entities.domain.sword;
 
 import model.entities.domain.weapon.Weapon;
 import model.enums.SwordType;
+import model.exceptions.Weapon.CreateWeaponException;
 import model.interfaces.MaterialType;
 
 public class Sword extends Weapon {
@@ -29,7 +30,7 @@ public class Sword extends Weapon {
             this.guard = guard;
             this.handler = handler;
         } else {
-            throw new IllegalArgumentException("The selected materials are not compatible to assemble a sword!");
+            throw new CreateWeaponException("The selected materials are not compatible to assemble a sword!");
         }
     }
 

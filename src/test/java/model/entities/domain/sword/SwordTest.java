@@ -15,8 +15,9 @@ class SwordTest {
 
         Material iron = new Material(Metals.IRON);
         Material pine = new Material(Woods.Pine);
+        Material steel = new Material(Metals.STEEL);
 
-        Sword sword = new Sword(SwordType.CLAYMORE, iron, iron, pine);
+        Sword sword = new Sword(SwordType.CLAYMORE, steel, iron, pine);
 
         Weapon test = sword;
         System.out.println("Name: " + test.getName());

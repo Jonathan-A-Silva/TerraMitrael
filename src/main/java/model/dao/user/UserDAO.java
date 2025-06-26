@@ -12,4 +12,6 @@ public interface UserDAO {
 
     User getUserForNickname(String nickname);
 
+    User getUserForEmail(String email);
+
 }

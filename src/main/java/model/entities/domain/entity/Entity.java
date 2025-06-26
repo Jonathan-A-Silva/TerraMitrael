@@ -94,4 +94,11 @@ public class Entity {
     public void setStatusMap(Map<Status, Float> statusMap) {
         this.statusMap = statusMap;
     }
+
+    public boolean isAlive(){
+        return life > 0;
+    }
+
+    
+
 }

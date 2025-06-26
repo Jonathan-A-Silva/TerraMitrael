@@ -26,7 +26,7 @@ public class HibernateInitializer implements ServletContextListener {
                 session.beginTransaction();
 
                 Encryption encryption = new Encryption();
-                User admin = new User(1, "JowSnow", "123", encryption);
+                User admin = new User(1, "jonathan.alfredodasilva2001@gmail.com", "JowSnow", "123", encryption);
 
                 session.save(encryption);
                 session.save(admin);

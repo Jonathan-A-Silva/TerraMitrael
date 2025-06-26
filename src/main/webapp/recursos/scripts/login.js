@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (data.sucesso) {
                         window.location.href = document.referrer || contextPath;
                     } else {
-                        mensagemDiv.style.display = "block";
+                        mensagemDiv.style.visibility = "visible";
                         mensagemDiv.textContent = data.mensagem;
                         mensagemDiv.style.backgroundColor = "#e74c3c";
                         setTimeout(() => {
-                            mensagemDiv.style.display = "none";
+                            mensagemDiv.style.visibility = "hidden";
                         }, 5000);
                     }
                 })

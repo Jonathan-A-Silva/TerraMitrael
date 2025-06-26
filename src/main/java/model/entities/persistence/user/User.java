@@ -29,6 +29,9 @@ public class User {
     @Column(name = "user_id")
     private long id;
 
+    @Column(name = "email", length = 256, nullable = false, unique = true)
+    private String email;
+
     @Column(name = "nickname", length = 32, nullable = false, unique = true)
     private String nickname;
 
@@ -48,6 +51,7 @@ public class User {
     public User() {
     }
 
+
     public User(String nickname, String password, Encryption encryption) {
         this.nickname = nickname;
         this.password = encryption.encrypt(password);
@@ -61,8 +65,23 @@ public class User {
         this.encryption = encryption;
     }
 
+    public User(String email, String nickname, String password, Encryption encryption) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = encryption.encrypt(password);
+        this.encryption = encryption;
+    }
+
     public User(long id, String nickname, String password, Encryption encryption) {
         this.id = id;
+        this.nickname = nickname;
+        this.password = encryption.encrypt(password);
+        this.encryption = encryption;
+    }
+
+    public User(long id, String email, String nickname, String password, Encryption encryption) {
+        this.id = id;
+        this.email = email;
         this.nickname = nickname;
         this.password = encryption.encrypt(password);
         this.encryption = encryption;
@@ -74,6 +93,14 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNickname() {
@@ -88,12 +115,8 @@ public class User {
         return password;
     }
 
-    public String getDecryptedPassword() {
-        return encryption.decrypt(password);
-    }
-
     public void setPassword(String password) {
-        this.password = encryption.encrypt(password);
+        this.password = password;
     }
 
     public Image getImage() {

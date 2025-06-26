@@ -82,4 +82,24 @@ public class UserDAOImpl implements UserDAO {
         return UserRecuperado;
     }
 
+    public User getUserForEmail(String email) {
+        Session session = null;
+        User UserRecuperado = null;
+        try {
+            session = factory.getConexao().openSession();
+            session.beginTransaction();
+            CriteriaBuilder construtor = session.getCriteriaBuilder();
+            CriteriaQuery<User> criteria = construtor.createQuery(User.class);
+            Root<User> raizUser = criteria.from(User.class);
+            criteria.select(raizUser).where(construtor.equal(raizUser.get(User_.EMAIL), email));
+            UserRecuperado = session.createQuery(criteria).getSingleResult();
+            session.getTransaction().commit();
+        } catch (Exception exception) {
+            DAOUtil.rollBack(session);
+        } finally {
+            DAOUtil.closeSession(session);
+        }
+        return UserRecuperado;
+    }
+
 }
