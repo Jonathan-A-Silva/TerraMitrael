@@ -15,7 +15,7 @@ public class EntityMapper implements Mapper<Entity, PersistenceEntity> {
                 entity.getStamina(),
                 entity.getMana(),
                 entity.getEntityClass(),
-                entity.getStatusMap()
+                entity.getstatus()
         );
     }
 

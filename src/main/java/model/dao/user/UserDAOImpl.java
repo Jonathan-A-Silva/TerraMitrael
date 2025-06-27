@@ -62,6 +62,29 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    public User getUserForId(Long id) {
+        Session session = null;
+        User userRecuperado = null;
+        try {
+            session = factory.getConexao().openSession();
+            session.beginTransaction();
+
+            CriteriaBuilder construtor = session.getCriteriaBuilder();
+            CriteriaQuery<User> criteria = construtor.createQuery(User.class);
+            Root<User> raizUser = criteria.from(User.class);
+            criteria.select(raizUser).where(construtor.equal(raizUser.get(User_.ID), id));
+
+            userRecuperado = session.createQuery(criteria).getSingleResult();
+
+            session.getTransaction().commit();
+        } catch (Exception exception) {
+            DAOUtil.rollBack(session);
+        } finally {
+            DAOUtil.closeSession(session);
+        }
+        return userRecuperado;
+    }
+
     public User getUserForNickname(String nickname) {
         Session session = null;
         User UserRecuperado = null;

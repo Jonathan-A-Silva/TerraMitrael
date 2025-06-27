@@ -10,6 +10,8 @@ public interface UserDAO {
 
     void updateUser(User usuario);
 
+    User getUserForId(Long id);
+
     User getUserForNickname(String nickname);
 
     User getUserForEmail(String email);

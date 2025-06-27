@@ -23,6 +23,7 @@ import model.dao.user.UserDAOImpl;
 import model.entities.persistence.encryption.Encryption;
 import model.entities.persistence.image.Image;
 import model.entities.persistence.user.User;
+import model.enums.Materials.Presence;
 import util.ResponseJson;
 
 @MultipartConfig
@@ -212,6 +213,8 @@ public class UserServlet extends HttpServlet {
                         imageDAO.saveImage(novaImage);
                     }
                 }
+
+                user.setPresence(Presence.DO_NOT_DISTURB);
 
                 userDAO.updateUser(update_profile);
                 session.setAttribute("User", update_profile);

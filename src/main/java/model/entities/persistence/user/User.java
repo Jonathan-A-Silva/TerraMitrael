@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 import model.entities.persistence.encryption.Encryption;
 import model.entities.persistence.image.Image;
 import model.entities.persistence.person.Person;
+import model.enums.Materials.Presence;
 
 @Entity
 @Table(name = "user")
@@ -48,14 +51,18 @@ public class User {
     @JoinColumn(name = "encryption_id", nullable = false, referencedColumnName = "encryption_id")
     private Encryption encryption;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "presence", nullable = false)
+    private Presence presence;
+
     public User() {
     }
-
 
     public User(String nickname, String password, Encryption encryption) {
         this.nickname = nickname;
         this.password = encryption.encrypt(password);
         this.encryption = encryption;
+        this.presence = Presence.OFFLINE;
     }
 
     public User(String nickname, String password, Image image, Encryption encryption) {
@@ -63,6 +70,7 @@ public class User {
         this.password = encryption.encrypt(password);
         this.image = image;
         this.encryption = encryption;
+        this.presence = Presence.OFFLINE;
     }
 
     public User(String email, String nickname, String password, Encryption encryption) {
@@ -70,6 +78,7 @@ public class User {
         this.nickname = nickname;
         this.password = encryption.encrypt(password);
         this.encryption = encryption;
+        this.presence = Presence.OFFLINE;
     }
 
     public User(long id, String nickname, String password, Encryption encryption) {
@@ -77,6 +86,7 @@ public class User {
         this.nickname = nickname;
         this.password = encryption.encrypt(password);
         this.encryption = encryption;
+        this.presence = Presence.OFFLINE;
     }
 
     public User(long id, String email, String nickname, String password, Encryption encryption) {
@@ -85,6 +95,7 @@ public class User {
         this.nickname = nickname;
         this.password = encryption.encrypt(password);
         this.encryption = encryption;
+        this.presence = Presence.OFFLINE;
     }
 
     public long getId() {
@@ -141,6 +152,14 @@ public class User {
 
     public void setEncryption(Encryption encryption) {
         this.encryption = encryption;
+    }
+
+    public Presence getPresence() {
+        return presence;
+    }
+
+    public void setPresence(Presence presence) {
+        this.presence = presence;
     }
 
     public boolean credentialsEquals(User other) {
