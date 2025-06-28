@@ -18,6 +18,7 @@
 
                 <form id="cadastro">
                     <div class="credenciais">
+                        <input type="email" name="email" placeholder="E-mail" />
                         <input type="text" name="nickname" placeholder="Apelido" />
                         <input type="password" name="password" placeholder="Senha" />
                     </div>

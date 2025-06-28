@@ -6,53 +6,51 @@ import javax.servlet.annotation.WebListener;
 
 import model.entities.persistence.encryption.Encryption;
 import model.entities.persistence.user.User;
+import model.factory.connection.ConnectionFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 @WebListener
 public class HibernateInitializer implements ServletContextListener {
 
-    private static SessionFactory sessionFactory;
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Session session = null;
-        try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        SessionFactory sessionFactory = connectionFactory.getConexao();
 
-            try {
-                session = sessionFactory.openSession();
-                session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
 
+            User existente = session.get(User.class, 1L);
+
+            if (existente == null) {
                 Encryption encryption = new Encryption();
                 User admin = new User(1, "jonathan.alfredodasilva2001@gmail.com", "JowSnow", "123", encryption);
 
                 session.save(encryption);
                 session.save(admin);
-
                 session.getTransaction().commit();
-                System.out.println("Feito o cadastro do padrão");
-            }catch (Exception e){
-                System.out.println("Usuário Padrão já cadastrado.");
+
+                System.out.println("Usuário padrão criado com sucesso.");
+            } else {
+                session.getTransaction().rollback();
+                System.out.println("Usuário padrão já existe.");
             }
 
-            sessionFactory.openSession().close();
-            System.out.println("Hibernate inicializado e schema gerado.");
-        } catch (Throwable ex) {
-            System.err.println("Erro ao inicializar o Hibernate: " + ex);
-            throw new ExceptionInInitializerError(ex);
+        } catch (Exception e) {
+            System.err.println("Erro ao criar usuário padrão: " + e.getMessage());
         }
+
+        System.out.println("Hibernate inicializado.");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        SessionFactory sessionFactory = connectionFactory.getConexao();
         if (sessionFactory != null) {
             sessionFactory.close();
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
 }

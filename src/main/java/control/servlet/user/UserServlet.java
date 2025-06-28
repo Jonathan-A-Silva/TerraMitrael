@@ -132,11 +132,12 @@ public class UserServlet extends HttpServlet {
     private void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Encryption encryption = new Encryption();
 
+        String email = request.getParameter("email");
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
 
 
-        User user = new User(nickname, password, encryption);
+        User user = new User(email, nickname, password, encryption);
 
         ResponseJson responseJson;
 
@@ -178,9 +179,15 @@ public class UserServlet extends HttpServlet {
             ResponseJson responseJson;
 
             if (user.credentialsEquals(profile_user)) {
+                user = userDAO.getUserForId(user.getId());
 
+                String email_edit = request.getParameter("profile-email-edit");
                 String nickname_edit = request.getParameter("profile-nickname-edit");
                 String password_edit = request.getParameter("profile-password-edit");
+
+                if (email_edit == null || email_edit.isBlank()) {
+                    email_edit = user.getEmail();
+                }
 
                 if (nickname_edit == null || nickname_edit.isBlank()) {
                     nickname_edit = user.getNickname();
@@ -194,7 +201,10 @@ public class UserServlet extends HttpServlet {
 
                 encryption = new Encryption(encryption.getId());
 
-                User update_profile = new User(user.getId(), nickname_edit, password_edit, encryption);
+                user.setEncryption(encryption);
+                user.setEmail(email_edit);
+                user.setNickname(nickname_edit);
+                user.setPassword(password_edit);
 
                 if (filePart != null && filePart.getSize() > 0) {
                     byte[] imagem = filePart.getInputStream().readAllBytes();
@@ -205,19 +215,17 @@ public class UserServlet extends HttpServlet {
                     if (imagemExistente != null) {
                         imagemExistente.setImage(imagem);
                         imagemExistente.setType(tipo);
-                        update_profile.setImage(imagemExistente);
+                        user.setImage(imagemExistente);
                         imageDAO.updateImage(imagemExistente);
                     } else {
-                        Image novaImage = new Image(imagem, tipo, update_profile);
-                        update_profile.setImage(novaImage);
+                        Image novaImage = new Image(imagem, tipo, user);
+                        user.setImage(novaImage);
                         imageDAO.saveImage(novaImage);
                     }
                 }
 
-                user.setPresence(Presence.DO_NOT_DISTURB);
-
-                userDAO.updateUser(update_profile);
-                session.setAttribute("User", update_profile);
+                userDAO.updateUser(user);
+                session.setAttribute("User", user);
 
                 responseJson = new ResponseJson(true, "Perfil Editado.");
                 response.getWriter().write(json.toJson(responseJson));

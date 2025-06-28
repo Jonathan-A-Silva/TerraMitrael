@@ -22,35 +22,41 @@ import model.entities.persistence.user.User;
 import model.enums.Materials.Presence;
 import util.HttpSessionConfigurator;
 
-@ServerEndpoint(value = "/game", configurator = HttpSessionConfigurator.class)public class GameWebSocket {
+@ServerEndpoint(value = "/game", configurator = HttpSessionConfigurator.class)
+public class GameWebSocket {
     private static final Map<String, Session> sessions = Collections.synchronizedMap(new HashMap<>());
     private static final Gson gson = new Gson();
-    private static UserDAO userDAO = new UserDAOImpl();
+    private static final UserDAO userDAO = new UserDAOImpl();
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config) throws IOException {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.HTTP_SESSION);
 
-        if (httpSession == null
-                || httpSession.getAttribute("User") == null) {
+        if (httpSession == null || httpSession.getAttribute("User") == null) {
+            session.close(new CloseReason(CloseReason.CloseCodes.VIOLATED_POLICY, "Usuário não autenticado"));
             return;
         }
 
-        User user = (User) httpSession.getAttribute("User");
+        User sessionUser = (User) httpSession.getAttribute("User");
+        User user = userDAO.getUserForId(sessionUser.getId());
+
+        if(!user.credentialsEquals(sessionUser)){
+            session.close(new CloseReason(CloseReason.CloseCodes.VIOLATED_POLICY, "Violação de integridade detectada."));
+            return;
+        }
+
         user.setPresence(Presence.ONLINE);
         userDAO.updateUser(user);
-        sessions.put(String.valueOf(user.getId()), session);
         session.getUserProperties().put("userId", user.getId());
-
     }
 
     @OnClose
     public void onClose(Session session) {
-        String userId = (String) session.getUserProperties().get("userId");
+        Long userId = (Long) session.getUserProperties().get("userId");
         if (userId != null) {
-            User user = userDAO.getUserForId(Long.valueOf(userId));
+            User user = userDAO.getUserForId(userId);
             if (user != null) {
-                user.setPresence(Presence.AWAY);
+                user.setPresence(Presence.OFFLINE);
                 userDAO.updateUser(user);
             }
             sessions.remove(userId);
