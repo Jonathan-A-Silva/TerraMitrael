@@ -1,6 +1,6 @@
-package model.entities.domain.material;
+package model.entities.domain.items;
 
-import model.entities.domain.item.Item;
+import util.MaterialUtilities;
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
 import model.entities.domain.stats.magicalstats.MagicStats;
@@ -10,18 +10,14 @@ public class Material extends Item implements MaterialType {
 
     private final MaterialType type;
 
-    public Material(MaterialType type) {
-        super(type.getName(), type.getDescription());
+    public Material(MaterialType type, int quantity) {
+        super(type.getName(), type.getDescription(), quantity, type.getMaxQuantity(), type.getWeight());
         this.type = type;
     }
 
-    public Material(long id, MaterialType type) {
-        super(id, type.getName(), type.getDescription());
-        this.type = type;
-    }
-
-    public MaterialType getType() {
-        return type;
+    @Override
+    public int getMaxQuantity() {
+        return type.getMaxQuantity();
     }
 
     @Override
@@ -40,18 +36,8 @@ public class Material extends Item implements MaterialType {
     }
 
     @Override
-    public boolean likeBlade() {
-        return type.likeBlade();
-    }
-
-    @Override
-    public boolean likeGuard() {
-        return type.likeGuard();
-    }
-
-    @Override
-    public boolean likeHandle() {
-        return type.likeHandle();
+    public MaterialUtilities utilities() {
+        return type.utilities();
     }
 
     @Override
@@ -59,8 +45,8 @@ public class Material extends Item implements MaterialType {
         return type.getDurability();
     }
 
-    public String getMaterialCategory() {
-        return type.getClass().getSimpleName();
+    @Override
+    public int getMaxDurability() {
+        return type.getMaxDurability();
     }
-
 }

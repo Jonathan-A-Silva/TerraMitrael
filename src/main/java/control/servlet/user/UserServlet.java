@@ -23,7 +23,6 @@ import model.dao.user.UserDAOImpl;
 import model.entities.persistence.encryption.Encryption;
 import model.entities.persistence.image.Image;
 import model.entities.persistence.user.User;
-import model.enums.Materials.Presence;
 import util.ResponseJson;
 
 @MultipartConfig
@@ -83,8 +82,9 @@ public class UserServlet extends HttpServlet {
         if (email_nick == null || email_nick.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             responseJson = new ResponseJson(false, "Você precisa preencher as credenciais.");
         } else {
-            User user = null;
-            User loginUser = null;
+            User user;
+            User loginUser;
+            Encryption encryption = null;
 
             try {
                 user = userDAO.getUserForNickname(email_nick);
@@ -93,14 +93,17 @@ public class UserServlet extends HttpServlet {
                     user = userDAO.getUserForEmail(email_nick);
                 }
 
-                Encryption encryption = encryptionDAO.getEncryptionByUserId(user.getId());
+                if (user != null) {
+                    encryption = encryptionDAO.getEncryptionByUserId(user.getId());
+                }
 
                 loginUser = new User(user.getEmail(), user.getNickname(), password, encryption);
             } catch (Exception e) {
-                e.printStackTrace();
+                user = null;
+                loginUser = null;
             }
 
-            if (loginUser.credentialsEquals(user)) {
+            if (loginUser != null && loginUser.credentialsEquals(user)) {
                 HttpSession session = request.getSession();
                 user.setEncryption(null);
                 session.setAttribute("User", user);
@@ -180,6 +183,9 @@ public class UserServlet extends HttpServlet {
 
             if (user.credentialsEquals(profile_user)) {
                 user = userDAO.getUserForId(user.getId());
+                Encryption encryption = encryptionDAO.getEncryptionByUserId(user.getId());
+
+                user.setEncryption(encryption);
 
                 String email_edit = request.getParameter("profile-email-edit");
                 String nickname_edit = request.getParameter("profile-nickname-edit");
@@ -194,10 +200,8 @@ public class UserServlet extends HttpServlet {
                 }
 
                 if (password_edit == null || password_edit.isBlank()) {
-                    password_edit = user.getPassword();
+                    password_edit = user.getDecryptPassword();
                 }
-
-                Encryption encryption = encryptionDAO.getEncryptionByUserId(user.getId());
 
                 encryption = new Encryption(encryption.getId());
 
@@ -245,4 +249,5 @@ public class UserServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/profile.jsp");
         dispatcher.forward(request, response);
     }
+
 }

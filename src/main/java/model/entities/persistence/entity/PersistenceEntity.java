@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import model.enums.Class;
+import model.enums.Race;
 import model.enums.Status;
 import util.StatusMapConverter;
 
@@ -27,6 +28,18 @@ public class PersistenceEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "attack", nullable = false)
+    private float attack;
+
+    @Column(name = "defense", nullable = false)
+    private float defense;
+
+    @Column(name = "critical_chance", nullable = false)
+    private float critical_chance;
+
+    @Column(name = "critical_damage", nullable = false)
+    private float critical_damage;
 
     @Column(name = "max_life", nullable = false)
     private float max_life;
@@ -47,128 +60,16 @@ public class PersistenceEntity {
     private float mana;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "class_id")
+    @Column(name = "class")
     private Class entityClass;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Race")
+    private Race race;
 
     @Column(name = "status", columnDefinition = "JSON")
     @Convert(converter = StatusMapConverter.class)
     private Map<Status, Float> status = new HashMap<>();
 
-    public PersistenceEntity() {
-    }
 
-    public PersistenceEntity(String name, float max_life, float life, float max_stamina, float stamina, float max_mana, float mana, Class entityClass, Map<Status, Float> status) {
-        this.name = name;
-        this.max_life = max_life;
-        this.life = life;
-        this.max_stamina = max_stamina;
-        this.stamina = stamina;
-        this.max_mana = max_mana;
-        this.mana = mana;
-        this.entityClass = entityClass;
-        this.status = status;
-    }
-
-    public PersistenceEntity(Long id, String name, float max_life, float life, float max_stamina, float stamina, float max_mana, float mana, Class entityClass, Map<Status, Float> status) {
-        this.id = id;
-        this.name = name;
-        this.max_life = max_life;
-        this.life = life;
-        this.max_stamina = max_stamina;
-        this.stamina = stamina;
-        this.max_mana = max_mana;
-        this.mana = mana;
-        this.entityClass = entityClass;
-        this.status = status;
-    }
-
-    public PersistenceEntity(Long id, String name, float life, float stamina, float mana, Class entityClass, Map<Status, Float> status) {
-        this.id = id;
-        this.name = name;
-        this.life = life;
-        this.stamina = stamina;
-        this.mana = mana;
-        this.entityClass = entityClass;
-        this.status = status;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getMax_life() {
-        return max_life;
-    }
-
-    public void setMax_life(float max_life) {
-        this.max_life = max_life;
-    }
-
-    public float getLife() {
-        return life;
-    }
-
-    public void setLife(float life) {
-        this.life = life;
-    }
-
-    public float getMax_stamina() {
-        return max_stamina;
-    }
-
-    public void setMax_stamina(float max_stamina) {
-        this.max_stamina = max_stamina;
-    }
-
-    public float getStamina() {
-        return stamina;
-    }
-
-    public void setStamina(float stamina) {
-        this.stamina = stamina;
-    }
-
-    public float getMax_mana() {
-        return max_mana;
-    }
-
-    public void setMax_mana(float max_mana) {
-        this.max_mana = max_mana;
-    }
-
-    public float getMana() {
-        return mana;
-    }
-
-    public void setMana(float mana) {
-        this.mana = mana;
-    }
-
-    public Class getEntityClass() {
-        return entityClass;
-    }
-
-    public void setEntityClass(Class entityClass) {
-        this.entityClass = entityClass;
-    }
-
-    public Map<Status, Float> getstatus() {
-        return status;
-    }
-
-    public void setstatus(Map<Status, Float> status) {
-        this.status = status;
-    }
 }

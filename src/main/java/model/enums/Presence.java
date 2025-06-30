@@ -1,4 +1,4 @@
-package model.enums.Materials;
+package model.enums;
 
 public enum Presence {
     ONLINE,

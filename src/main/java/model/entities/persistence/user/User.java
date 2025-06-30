@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import model.entities.persistence.encryption.Encryption;
 import model.entities.persistence.image.Image;
 import model.entities.persistence.person.Person;
-import model.enums.Materials.Presence;
+import model.enums.Presence;
 
 @Entity
 @Table(name = "user")
@@ -126,8 +126,12 @@ public class User {
         return password;
     }
 
+    public String getDecryptPassword(){
+        return encryption.decrypt(password);
+    }
+
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encryption.encrypt(password);
     }
 
     public Image getImage() {

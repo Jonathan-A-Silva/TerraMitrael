@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import model.dao.user.UserDAO;
 import model.dao.user.UserDAOImpl;
 import model.entities.persistence.user.User;
-import model.enums.Materials.Presence;
+import model.enums.Presence;
 import util.HttpSessionConfigurator;
 
 @ServerEndpoint(value = "/game", configurator = HttpSessionConfigurator.class)
@@ -72,17 +72,17 @@ public class GameWebSocket {
         }
     }
 
-    @OnError
-    public void onError(Session session, Throwable throwable) {
-        sessions.values().remove(session);
-        throwable.printStackTrace();
-    }
-
     private void sendMessage(Session session, String message) {
         try {
             session.getBasicRemote().sendText(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @OnError
+    public void onError(Session session, Throwable throwable) {
+        sessions.values().remove(session);
+        throwable.printStackTrace();
     }
 }

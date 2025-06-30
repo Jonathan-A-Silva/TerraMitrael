@@ -18,32 +18,11 @@
 
             <div class="pagina">
 
-<c:if test="${not empty sessionScope.User}">
-    <script>
-        const socket = new WebSocket("ws://localhost:8080/TerrasMitrael/game");
-
-        socket.onopen = () => {
-            console.log("✅ Conectado ao WebSocket /game");
-        };
-
-        socket.onmessage = (event) => {
-            console.log("📨 Mensagem do servidor:", event.data);
-            if (event.data.startsWith("REDIRECT:")) {
-                window.location.href = event.data.replace("REDIRECT:", "");
-            }
-        };
-
-        socket.onclose = () => {
-            console.log("🔌 WebSocket desconectado.");
-        };
-
-        socket.onerror = (err) => {
-            console.error("❌ Erro no WebSocket:", err);
-        };
-    </script>
-</c:if>
-
             </div>
+
+            <c:if test="${not empty sessionScope.User}">
+                <script src="${pageContext.request.contextPath}/recursos/scripts/startgame.js"></script>
+            </c:if>
 
         </body>
 

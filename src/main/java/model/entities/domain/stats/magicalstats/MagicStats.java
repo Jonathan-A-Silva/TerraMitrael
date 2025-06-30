@@ -1,8 +1,11 @@
 package model.entities.domain.stats.magicalstats;
 
 public class MagicStats {
-    private final double spellPower;
-    private final double manaRegen;
+    private double spellPower;
+    private double manaRegen;
+
+    public MagicStats() {
+    }
 
     public MagicStats(double spellPower, double manaRegen) {
         this.spellPower = spellPower;
@@ -16,4 +19,10 @@ public class MagicStats {
     public double getManaRegen() {
         return manaRegen;
     }
+
+    public void mergeStatus(MagicStats magicStats) {
+        this.spellPower = magicStats.getSpellPower();
+        this.manaRegen = magicStats.getManaRegen();
+    }
+
 }

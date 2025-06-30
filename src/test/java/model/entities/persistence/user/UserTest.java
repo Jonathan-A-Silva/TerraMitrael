@@ -3,7 +3,7 @@ package model.entities.persistence.user;
 import model.dao.user.UserDAO;
 import model.dao.user.UserDAOImpl;
 import model.entities.persistence.encryption.Encryption;
-import model.enums.Materials.Presence;
+import model.enums.Presence;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

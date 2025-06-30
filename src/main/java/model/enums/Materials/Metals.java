@@ -3,73 +3,62 @@ package model.enums.Materials;
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
 import model.entities.domain.stats.magicalstats.MagicStats;
+import model.enums.MaterialRole;
 import model.interfaces.MaterialType;
+import util.MaterialUtilities;
 
 public enum Metals implements MaterialType {
 
     COPPER(
             "Copper",
-            "test",
-            new AttackStats(0.5, 0.7, 7, 1),
-            new DefenseStats(1, 1, 0.2),
+            "That's a simple material.",
+            16,
+            44,
+            0.6,
+            new AttackStats(0.5, 0.25, 0, 0),
             null,
-            true,
-            true,
-            false,
-            60
-    ),
-    IRON(
-            "Iron",
-            "test",
-            new AttackStats(1.0, 1.0, 10, 2),
-            new DefenseStats(2, 1.5, 0.5),
             null,
-            true,
-            true,
-            false,
-            140
-    ),
-    STEEL(
-            "Steel",
-            "test",
-            new AttackStats(1.5, 1.2, 15, 3),
-            new DefenseStats(3, 2, 0.7),
-            null,
-            true,
-            true,
-            false,
-            320
+            new MaterialUtilities(MaterialRole.BLADE, MaterialRole.GUARD)
     );
 
     private final String name;
     private final String description;
+    private final int max_quantity;
+    private final int durability;
+    private final double weight;
     private final AttackStats attackStats;
     private final DefenseStats defenseStats;
     private final MagicStats magicStats;
-    private final boolean canBeBlade;
-    private final boolean canBeGuard;
-    private final boolean canBeHandle;
-    private final int durability;
-
-    Metals(String name, String description1, AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats,
-           boolean canBeBlade, boolean canBeGuard, boolean canBeHandle, int durability) {
+    private final MaterialUtilities materialUtilities;
+    Metals(String name, String description, int max_quantity, int durability, double weight, AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats, MaterialUtilities materialUtilities) {
         this.name = name;
-        this.description = description1;
+        this.description = description;
+        this.max_quantity = max_quantity;
+        this.durability = durability;
+        this.weight = weight;
         this.attackStats = attackStats;
         this.defenseStats = defenseStats;
         this.magicStats = magicStats;
-        this.canBeBlade = canBeBlade;
-        this.canBeGuard = canBeGuard;
-        this.canBeHandle = canBeHandle;
-        this.durability = durability;
+        this.materialUtilities = materialUtilities;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getDescription() {
         return description;
+    }
+
+    public int getMaxQuantity() {
+        return max_quantity;
+    }
+
+    @Override
+    public double getWeight() {
+        return weight;
     }
 
     @Override
@@ -88,22 +77,19 @@ public enum Metals implements MaterialType {
     }
 
     @Override
-    public boolean likeBlade() {
-        return canBeBlade;
+    public MaterialUtilities utilities() {
+        return materialUtilities;
     }
 
     @Override
-    public boolean likeGuard() {
-        return canBeGuard;
-    }
-
-    @Override
-    public boolean likeHandle() {
-        return canBeHandle;
-    }
-
     public int getDurability() {
         return durability;
     }
+
+    @Override
+    public int getMaxDurability() {
+        return durability;
+    }
+
 
 }

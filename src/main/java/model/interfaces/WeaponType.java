@@ -1,19 +1,17 @@
 package model.interfaces;
 
-import util.MaterialUtilities;
+import java.util.List;
+
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
 import model.entities.domain.stats.magicalstats.MagicStats;
+import model.enums.DamageType;
 
-public interface MaterialType {
+public interface WeaponType {
 
     String getName();
 
     String getDescription();
-
-    int getMaxQuantity();
-
-    double getWeight();
 
     AttackStats getAttackStats();
 
@@ -21,10 +19,8 @@ public interface MaterialType {
 
     MagicStats getMagicStats();
 
-    MaterialUtilities utilities();
+    double getDurability();
 
-    int getDurability();
-
-    int getMaxDurability();
+    List<DamageType> getDamageTypes();
 
 }

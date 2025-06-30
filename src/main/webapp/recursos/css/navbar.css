@@ -19,10 +19,9 @@
 
 button.menu {
     display: flex;
-    position: fixed;
-    left: 10px;
+    position: static;
     font-size: 32px;
-    margin-right: 10px;
+    margin-left: 3px;
     background-color: transparent;
     border: transparent;
     border-radius: 20%;
@@ -31,8 +30,7 @@ button.menu {
 
 button.menu:hover {
     border: 3px solid #fdfb8e;
-    left: 7px;
-    position: fixed;
+    margin-left: 0px;
 }
 
 
