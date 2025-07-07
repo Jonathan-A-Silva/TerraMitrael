@@ -16,6 +16,8 @@ import model.dao.person.PersonDAO;
 import model.dao.person.PersonDAOImpl;
 import model.dao.user.UserDAO;
 import model.dao.user.UserDAOImpl;
+import model.enums.EntityClass;
+import model.enums.Race;
 
 @WebServlet(urlPatterns = {"/register-person"})
 public class PersonServlet extends HttpServlet {
@@ -48,6 +50,9 @@ public class PersonServlet extends HttpServlet {
     }
 
     private void RegisterPerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("classes", EntityClass.values());
+        request.setAttribute("races", Race.values());
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/register-person.jsp");
         dispatcher.forward(request, response);
     }

@@ -1,13 +1,13 @@
 package model.entities.persistence.person;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,29 +20,29 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "entity_id", referencedColumnName = "id")
+    @Column(name = "person_first_name", nullable = false)
+    private String first_name;
+
+    @Column(name = "person_last_name", nullable = true)
+    private String last_name;
+
+    @Column(name = "person_family", nullable = true)
+    private String family;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "entity_id", referencedColumnName = "entity_id")
     private PersistenceEntity entity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_nickname")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     public Person() {
     }
 
-    public Person(PersistenceEntity entity, User user) {
-        this.entity = entity;
-        this.user = user;
-    }
-
-    public Person(User user, PersistenceEntity entity, Long id) {
-        this.user = user;
-        this.entity = entity;
-        this.id = id;
-    }
 
     public Long getId() {
         return id;

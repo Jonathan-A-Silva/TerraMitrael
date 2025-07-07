@@ -1,85 +1,74 @@
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f6fb;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
-.register-container {
-    max-width: 400px;
-    margin: 40px auto;
-    background: #fff;
+form {
+    background-color: white;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    padding: 32px 28px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.register-title {
-    text-align: center;
-    font-size: 2rem;
-    color: #2d3a4b;
-    margin-bottom: 24px;
-    font-weight: 600;
-}
-
-.register-form label {
+label {
     display: block;
-    margin-bottom: 6px;
-    color: #4a5568;
-    font-size: 1rem;
-    font-weight: 500;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
-.register-form input[type="text"],
-.register-form input[type="email"],
-.register-form input[type="password"],
-.register-form input[type="date"] {
+input[type="text"] {
     width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 18px;
-    border: 1px solid #cbd5e1;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 1rem;
-    background: #f9fafb;
-    transition: border 0.2s;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
-.register-form input:focus {
-    border-color: #4f8cff;
+input[type="text"]:focus {
+    border-color: #4a90e2;
     outline: none;
-    background: #fff;
 }
 
-.register-form button {
-    width: 100%;
-    padding: 12px 0;
-    background: #4f8cff;
-    color: #fff;
+h2 {
+    color: #000;
+    margin: auto;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #4a90e2;
+}
+
+.classe-tab {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
+    text-align: center;
+}
+
+input[type="submit"] {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 20px;
     border: none;
     border-radius: 6px;
-    font-size: 1.1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
 }
 
-.register-form button:hover {
-    background: #2563eb;
-}
-
-.register-form .error-message {
-    color: #e53e3e;
-    background: #fff5f5;
-    border: 1px solid #fed7d7;
-    border-radius: 4px;
-    padding: 8px 12px;
-    margin-bottom: 16px;
-    font-size: 0.97rem;
-}
-
-@media (max-width: 500px) {
-    .register-container {
-        padding: 18px 8px;
-        max-width: 98vw;
-    }
+input[type="submit"]:hover {
+    background-color: #357abd;
 }

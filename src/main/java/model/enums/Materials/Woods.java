@@ -31,6 +31,7 @@ public enum Woods implements MaterialType {
     private final DefenseStats defenseStats;
     private final MagicStats magicStats;
     private final MaterialUtilities materialUtilities;
+
     Woods(String name, String description, int max_quantity, int durability, double weight, AttackStats attackStats, DefenseStats defenseStats, MagicStats magicStats, MaterialUtilities materialUtilities) {
         this.name = name;
         this.description = description;

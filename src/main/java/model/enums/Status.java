@@ -5,6 +5,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import model.entities.domain.stats.attackstats.AttackStats;
+
 public enum Status {
 
     FORCA,

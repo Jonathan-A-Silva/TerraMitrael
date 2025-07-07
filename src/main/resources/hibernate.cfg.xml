@@ -9,8 +9,6 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
-        <property name="show_sql">true</property>
-        <property name="format_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.connection.useUnicode">true</property>
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
@@ -18,6 +16,7 @@
         <mapping class="model.entities.persistence.encryption.Encryption"/>
         <mapping class="model.entities.persistence.entity.PersistenceEntity"/>
         <mapping class="model.entities.persistence.image.Image"/>
+        <mapping class="model.entities.persistence.item.PersistenceItem"/>
         <mapping class="model.entities.persistence.person.Person"/>
         <mapping class="model.entities.persistence.user.User"/>
     </session-factory>

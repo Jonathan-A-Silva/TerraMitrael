@@ -14,6 +14,7 @@ public class ConnectionFactory {
         configuration.addAnnotatedClass(model.entities.persistence.encryption.Encryption.class);
         configuration.addAnnotatedClass(model.entities.persistence.entity.PersistenceEntity.class);
         configuration.addAnnotatedClass(model.entities.persistence.image.Image.class);
+        configuration.addAnnotatedClass(model.entities.persistence.item.PersistenceItem.class);
         configuration.addAnnotatedClass(model.entities.persistence.person.Person.class);
         configuration.addAnnotatedClass(model.entities.persistence.user.User.class);
 
