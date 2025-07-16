@@ -20,38 +20,43 @@
                 <h2>Cadastro de Personagem</h2>
 
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" placeholder="Nome" required />
-
+                <input type="text" id="nome" name="nome" placeholder="Nome" />
                 <label for="sobrenome">Sobrenome:</label>
                 <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" />
 
-                <div class="menu-classes">
+                <div class="classe-form">
                     <h3>Classes:</h3>
+                    <div class="menu-classes">
+                        <button type="button" class="volta-classe"><-</button>
+                        <c:forEach var="classe" items="${classes}">
+                            <div class="classe-tab">
+                                <label for="classe">${classe.getNome()}</label>
+                                <div>
+                                    <label for="classe-descricao">Descrição da Classe</label>
+                                    <p>${classe.getDescricao()}</p>
+                                </div>
+                            </div>
+                        </c:forEach>
+                        <button type="button" class="proxima-classe">-></button>
+                    </div>
+                </div>
 
-                    <c:forEach var="classe" items="${classes}">
-                        <div class="classe-tab">
-                            <label for="classe">${classe.getNome()}</label>
+                <div class="menu-races">
+                    <h3>Raça:</h3>
+                    <c:forEach var="race" items="${races}">
+                        <div class="race-tab">
+                            <label for="race">${race.getNome()}</label>
                             <div>
-                                <label for="classe-descricao">Descrição da Classe</label>
-                                <p>${classe.getDescricao()}</p>
+                                <label for="classe-descricao">Descrição da Raça</label>
+                                <p>${race.getDescricao()}</p>
                             </div>
                         </div>
                     </c:forEach>
-
-                    <script src="${pageContext.request.contextPath}/recursos/scripts/register-person.js"></script>
+                    <button type="button" class="volta-race"><-< /button>
+                            <button type="button" class="proxima-race">-></button>
                 </div>
 
-                <div>
-                    <h3>Raça:</h3>
-
-                    <c:forEach var="race" items="${races}">
-                        <label for="race">${race.getNome()}</label>
-                        <div>
-                            <label for="classe-descricao">Descrição da Raça</label>
-                            <p>${race.getDescricao()}</p>
-                        </div>
-                    </c:forEach>
-                </div>
+                <script src="${pageContext.request.contextPath}/recursos/scripts/register-person.js"></script>
 
                 <input type="submit" value="Criar Personagem" />
             </form>

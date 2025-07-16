@@ -57,6 +57,15 @@ h3 {
     text-align: center;
 }
 
+.race-tab {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
+    text-align: center;
+}
+
 input[type="submit"] {
     background-color: #4a90e2;
     color: white;

@@ -1,5 +1,8 @@
+import { getWebSocketUrl } from './websocket-utils.js';
+
 document.addEventListener("DOMContentLoaded", function () {
-    const socket = new WebSocket("ws://localhost:8080/TerrasMitrael/game");
+    
+    const socket = new WebSocket(getWebSocketUrl());
 
     socket.onopen = () => {
         console.log("✅ Conectado ao WebSocket /game");
