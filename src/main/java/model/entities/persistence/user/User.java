@@ -126,7 +126,7 @@ public class User {
         return password;
     }
 
-    public String getDecryptPassword(){
+    public String getDecryptPassword() {
         return encryption.decrypt(password);
     }
 
@@ -148,6 +148,10 @@ public class User {
 
     public void setPersons(List<Person> persons) {
         this.persons = persons;
+    }
+
+    public void addPerson(Person person) {
+        persons.add(person);
     }
 
     public Encryption getEncryption() {

@@ -1,8 +1,8 @@
 package model.entities.domain.items;
 
 import model.enums.MaterialRole;
-import model.enums.SwordType;
-import model.exceptions.Weapon.CreateWeaponException;
+import model.enums.weapons.SwordType;
+import model.exceptions.weapon.CreateWeaponException;
 import model.interfaces.MaterialType;
 
 public class Sword extends Weapon {

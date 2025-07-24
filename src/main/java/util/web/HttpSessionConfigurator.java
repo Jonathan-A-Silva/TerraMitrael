@@ -1,4 +1,4 @@
-package util;
+package util.web;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.HandshakeResponse;

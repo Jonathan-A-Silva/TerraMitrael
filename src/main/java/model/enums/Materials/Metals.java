@@ -5,7 +5,7 @@ import model.entities.domain.stats.defensestats.DefenseStats;
 import model.entities.domain.stats.magicalstats.MagicStats;
 import model.enums.MaterialRole;
 import model.interfaces.MaterialType;
-import util.MaterialUtilities;
+import util.entities.MaterialUtilities;
 
 public enum Metals implements MaterialType {
 

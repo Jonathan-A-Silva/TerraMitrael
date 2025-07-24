@@ -1,14 +1,11 @@
 package model.entities.domain.entity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
+import model.entities.domain.stats.entitystatus.EntityStatus;
 import model.entities.domain.stats.magicalstats.MagicStats;
 import model.enums.EntityClass;
 import model.enums.Race;
-import model.enums.Status;
 
 public class Entity {
 
@@ -26,9 +23,11 @@ public class Entity {
 
     private Race race;
 
-    private Map<Status, Float> status = new HashMap<>();
+    private EntityStatus entityStatus;
 
     private double weight;
+
+
 
     public Long getId() {
         return id;
@@ -86,12 +85,12 @@ public class Entity {
         this.race = race;
     }
 
-    public Map<Status, Float> getStatus() {
-        return status;
+    public EntityStatus getEntityStatus() {
+        return entityStatus;
     }
 
-    public void setStatus(Map<Status, Float> status) {
-        this.status = status;
+    public void setEntityStatus(EntityStatus entityStatus) {
+        this.entityStatus = entityStatus;
     }
 
     public double getWeight() {
@@ -100,11 +99,6 @@ public class Entity {
 
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    public void setCombatStatus() {
-        attackStats.setDamage(status.get(Status.FORCA) - (weight / 3));
-        attackStats.setSpeed((status.get(Status.AGILIDADE) / 2) - weight);
     }
 
 }

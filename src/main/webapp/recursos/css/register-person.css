@@ -1,15 +1,40 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbff;
+}
+
+.pagina {
+    display: flex;
+    justify-content: center;
+}
+
+.pagina::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../imagens/login.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(40%) blur(0.5vh);
+    z-index: 0;
 }
 
 form {
     background-color: white;
     max-width: 500px;
-    margin: 30px auto;
+    margin: 64px;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -46,6 +71,25 @@ h2 {
 h3 {
     margin-top: 20px;
     color: #4a90e2;
+    text-align: center;
+    margin: 10px;
+}
+
+button {
+    display: flex;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 12px 20px;
+    margin: 15px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #357abd;
 }
 
 .classe-tab {
@@ -57,6 +101,14 @@ h3 {
     text-align: center;
 }
 
+.botoes-classes {
+    display: flex;
+    width: 450px;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .race-tab {
     padding: 10px;
     border: 1px solid #ccc;
@@ -65,6 +117,15 @@ h3 {
     background-color: #fafafa;
     text-align: center;
 }
+
+.botoes-race {
+    display: flex;
+    width: 450px;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 input[type="submit"] {
     background-color: #4a90e2;
@@ -75,6 +136,7 @@ input[type="submit"] {
     cursor: pointer;
     font-size: 16px;
     width: 100%;
+    margin-top: 40px;
     transition: background-color 0.3s ease;
 }
 

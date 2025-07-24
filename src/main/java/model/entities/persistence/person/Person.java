@@ -43,6 +43,12 @@ public class Person {
     public Person() {
     }
 
+    public Person(String first_name, String last_name, PersistenceEntity entity, User user) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.entity = entity;
+        this.user = user;
+    }
 
     public Long getId() {
         return id;

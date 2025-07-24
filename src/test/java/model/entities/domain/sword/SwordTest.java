@@ -5,7 +5,7 @@ import model.entities.domain.items.Sword;
 import model.entities.domain.items.Weapon;
 import model.enums.Materials.Metals;
 import model.enums.Materials.Woods;
-import model.enums.SwordType;
+import model.enums.weapons.SwordType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

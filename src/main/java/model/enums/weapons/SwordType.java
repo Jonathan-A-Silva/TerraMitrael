@@ -1,10 +1,11 @@
-package model.enums;
+package model.enums.weapons;
 
 import java.util.List;
 
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
 import model.entities.domain.stats.magicalstats.MagicStats;
+import model.enums.DamageType;
 import model.interfaces.WeaponType;
 
 public enum SwordType implements WeaponType {

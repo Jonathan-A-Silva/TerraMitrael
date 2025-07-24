@@ -1,29 +1,21 @@
 package model.entities.persistence.entity;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
 
 import model.enums.EntityClass;
 import model.enums.Race;
-import model.enums.Status;
 
 @Entity
-@Table(name = "persistence_entity")
+@Table(name = "entity")
 public class PersistenceEntity {
 
     @Id
@@ -40,14 +32,13 @@ public class PersistenceEntity {
     @Enumerated(EnumType.STRING)
     private Race race;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "entity_status", joinColumns = @JoinColumn(name = "entity_id"))
-    @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "status_key")
-    @Column(name = "status_value")
-    private Map<Status, Integer> status = new HashMap<>();
-
     public PersistenceEntity() {
+    }
+
+    public PersistenceEntity(String name, EntityClass entityClass, Race race) {
+        this.name = name;
+        this.entityClass = entityClass;
+        this.race = race;
     }
 
     public Long getId() {

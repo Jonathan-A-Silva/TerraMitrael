@@ -20,7 +20,7 @@ import model.dao.user.UserDAO;
 import model.dao.user.UserDAOImpl;
 import model.entities.persistence.user.User;
 import model.enums.Presence;
-import util.HttpSessionConfigurator;
+import util.web.HttpSessionConfigurator;
 
 @ServerEndpoint(value = "/game", configurator = HttpSessionConfigurator.class)
 public class GameWebSocket {

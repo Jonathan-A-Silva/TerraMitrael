@@ -10,7 +10,7 @@ import model.entities.persistence.user.User;
 import model.entities.persistence.user.User_;
 import model.factory.connection.ConnectionFactory;
 import org.hibernate.Session;
-import util.DAOUtil;
+import util.dao.DAOUtil;
 
 public class EncryptionDAOImpl implements EncryptionDAO {
 

@@ -1,4 +1,4 @@
-package model.exceptions.Weapon;
+package model.exceptions.weapon;
 
 public class CreateWeaponException extends RuntimeException {
 

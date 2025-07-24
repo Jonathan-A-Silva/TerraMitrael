@@ -21,8 +21,8 @@
                     <img src="${pageContext.request.contextPath}/recursos/imagens/user.png">
 
                     <div class="credenciais">
-                        <input type="text" name="nickname" placeholder="Apelido" required>
-                        <input type="password" name="password" placeholder="Senha" required>
+                        <input type="text" name="nickname" placeholder="Apelido">
+                        <input type="password" name="password" placeholder="Senha">
                     </div>
 
                     <div id="mensagem"></div>

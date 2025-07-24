@@ -1,4 +1,4 @@
-package util;
+package util.entities;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,6 @@ import javax.persistence.Converter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.enums.Status;
 
 @Converter
 public class StatusMapConverter implements AttributeConverter<Map<Status, Float>, String> {

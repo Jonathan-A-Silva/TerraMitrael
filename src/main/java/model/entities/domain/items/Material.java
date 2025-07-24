@@ -1,6 +1,6 @@
 package model.entities.domain.items;
 
-import util.MaterialUtilities;
+import util.entities.MaterialUtilities;
 import model.entities.domain.stats.attackstats.AttackStats;
 import model.entities.domain.stats.defensestats.DefenseStats;
 import model.entities.domain.stats.magicalstats.MagicStats;

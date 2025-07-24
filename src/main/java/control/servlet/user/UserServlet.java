@@ -23,7 +23,11 @@ import model.dao.user.UserDAOImpl;
 import model.entities.persistence.encryption.Encryption;
 import model.entities.persistence.image.Image;
 import model.entities.persistence.user.User;
-import util.ResponseJson;
+import model.exceptions.user.InvalidUserException;
+import model.service.UserService;
+import util.web.ResponseJson;
+import util.web.SessionValidator;
+import util.web.Validator;
 
 @MultipartConfig
 @WebServlet(urlPatterns = {"/edit-profile", "/home", "/login", "/login-user", "/logout", "/register", "/register-user", "/profile"})
@@ -34,11 +38,13 @@ public class UserServlet extends HttpServlet {
     private EncryptionDAO encryptionDAO;
     private ImageDAO imageDAO;
     private UserDAO userDAO;
+    private UserService userService;
 
     public void init() {
         encryptionDAO = new EncryptionDAOImpl();
         imageDAO = new ImageDAOImpl();
         userDAO = new UserDAOImpl();
+        userService = new UserService(userDAO, imageDAO, encryptionDAO);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -74,49 +80,30 @@ public class UserServlet extends HttpServlet {
     }
 
     private void loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String email_nick = request.getParameter("nickname");
+        String emailOrNickname = request.getParameter("nickname");
         String password = request.getParameter("password");
-
         ResponseJson responseJson;
 
-        if (email_nick == null || email_nick.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-            responseJson = new ResponseJson(false, "Você precisa preencher as credenciais.");
-        } else {
-            User user;
-            User loginUser;
-            Encryption encryption = null;
-
-            try {
-                user = userDAO.getUserForNickname(email_nick);
-
-                if (user == null) {
-                    user = userDAO.getUserForEmail(email_nick);
-                }
-
-                if (user != null) {
-                    encryption = encryptionDAO.getEncryptionByUserId(user.getId());
-                }
-
-                loginUser = new User(user.getEmail(), user.getNickname(), password, encryption);
-            } catch (Exception e) {
-                user = null;
-                loginUser = null;
-            }
-
-            if (loginUser != null && loginUser.credentialsEquals(user)) {
-                HttpSession session = request.getSession();
-                user.setEncryption(null);
-                session.setAttribute("User", user);
+        try {
+            Validator.validateLoginCredentials(emailOrNickname, password);
+            User user = userService.authenticateUser(emailOrNickname, password);
+            if (user != null) {
+                SessionValidator.setLoggedUser(request, user);
                 responseJson = new ResponseJson(true);
             } else {
                 responseJson = new ResponseJson(false, "Credenciais inválidas.");
             }
 
+        } catch (InvalidUserException e) {
+            responseJson = new ResponseJson(false, e.getMessage());
+        } catch (PersistenceException e) {
+            responseJson = new ResponseJson(false, "Erro ao acessar o banco de dados: " + e.getMessage());
+        } catch (Exception e) {
+            responseJson = new ResponseJson(false, "Erro inesperado: " + e.getMessage());
         }
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json.toJson(responseJson));
+        sendJsonResponse(response, responseJson);
+
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -133,52 +120,35 @@ public class UserServlet extends HttpServlet {
     }
 
     private void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Encryption encryption = new Encryption();
-
         String email = request.getParameter("email");
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
-
-
-        User user = new User(email, nickname, password, encryption);
-
         ResponseJson responseJson;
 
-        if (nickname == null || nickname.trim().isEmpty() || password == null || password.length() < 6) {
-            responseJson = new ResponseJson(false, "Nickname e password são obrigatórios e a password deve conter pelo menos 6 caracteres.");
-        } else {
-            try {
-                userDAO.saveUser(user);
-                responseJson = new ResponseJson(true);
-            } catch (PersistenceException e) {
-                responseJson = new ResponseJson(false, "Nickname já em uso.");
-            } catch (Exception e) {
-                responseJson = new ResponseJson(false, "Erro inesperado.");
-            }
+        try {
+            User user = new User(email, nickname, password, new Encryption());
+            Validator.validateRegistration(user);
+            userDAO.saveUser(user);
+            responseJson = new ResponseJson(true);
+        } catch (InvalidUserException e) {
+            responseJson = new ResponseJson(false, e.getMessage());
+        } catch (PersistenceException e) {
+            responseJson = new ResponseJson(false, "Nickname já em uso.");
+        } catch (Exception e) {
+            responseJson = new ResponseJson(false, "Erro inesperado: " + e.getMessage());
         }
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json.toJson(responseJson));
-
+        sendJsonResponse(response, responseJson);
     }
 
     private void profileEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-
-        User user = null;
-
-        if (session != null && session.getAttribute("User") != null) {
-            user = (User) session.getAttribute("User");
-        }
-
-        if (user == null) {
+        if (!SessionValidator.isUserLoggedIn(request)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/login.jsp");
             dispatcher.forward(request, response);
         } else {
             Part filePart = request.getPart("profile-image");
             String nickname = request.getParameter("profile-nickname");
             User profile_user = userDAO.getUserForNickname(nickname);
+            User user = SessionValidator.getLoggedUser(request);
             ResponseJson responseJson;
 
             if (user.credentialsEquals(profile_user)) {
@@ -229,7 +199,7 @@ public class UserServlet extends HttpServlet {
                 }
 
                 userDAO.updateUser(user);
-                session.setAttribute("User", user);
+                SessionValidator.setLoggedUser(request, user);
 
                 responseJson = new ResponseJson(true, "Perfil Editado.");
                 response.getWriter().write(json.toJson(responseJson));
@@ -240,7 +210,8 @@ public class UserServlet extends HttpServlet {
 
     }
 
-    private void profileUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void profileUser(HttpServletRequest request, HttpServletResponse response) throws
+            IOException, ServletException {
         String nickname = request.getParameter("nickname");
 
         User user = userDAO.getUserForNickname(nickname);
@@ -248,6 +219,12 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("userprofile", user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/profile.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void sendJsonResponse(HttpServletResponse response, ResponseJson responseJson) throws IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json.toJson(responseJson));
     }
 
 }
