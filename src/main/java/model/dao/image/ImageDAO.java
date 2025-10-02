@@ -1,6 +1,6 @@
 package model.dao.image;
 
-import model.entities.persistence.image.Image;
+import model.persistence.image.Image;
 
 public interface ImageDAO {
 

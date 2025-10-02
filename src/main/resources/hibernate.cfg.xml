@@ -13,11 +13,11 @@
         <property name="hibernate.connection.useUnicode">true</property>
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
         <property name="hibernate.connection.CharSet">UTF-8</property>
-        <mapping class="model.entities.persistence.encryption.Encryption"/>
+        <mapping class="model.persistence.encryption.Encryption"/>
         <mapping class="model.entities.persistence.entity.PersistenceEntity"/>
-        <mapping class="model.entities.persistence.image.Image"/>
-        <mapping class="model.entities.persistence.item.PersistenceItem"/>
-        <mapping class="model.entities.persistence.person.Person"/>
-        <mapping class="model.entities.persistence.user.User"/>
+        <mapping class="model.persistence.image.Image"/>
+        <mapping class="model.persistence.item.PersistenceItem"/>
+        <mapping class="model.persistence.person.Person"/>
+        <mapping class="model.persistence.user.User"/>
     </session-factory>
 </hibernate-configuration>

@@ -4,8 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import model.entities.persistence.encryption.Encryption;
-import model.entities.persistence.user.User;
+import model.persistence.encryption.Encryption;
+import model.persistence.user.User;
 import model.factory.connection.ConnectionFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

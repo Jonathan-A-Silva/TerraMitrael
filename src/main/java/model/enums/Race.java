@@ -2,19 +2,21 @@ package model.enums;
 
 import java.util.List;
 
+import model.enums.body.Body;
+
 public enum Race {
-    HUMAN("Humano", "Os humanos são a raça mais adaptável e ambiciosa do mundo conhecido. Em meio a reinos ancestrais, castelos flutuantes e cidades movidas a cristais mágicos, eles se destacam por sua criatividade, curiosidade e capacidade de evolução constante. Embora não possuam as vidas longas dos elfos nem a força bruta dos orcs, os humanos compensam com engenhosidade e um espírito incansável de descoberta."),
-    ELF("Elfo", "Antigos como as florestas e refinados como o cristal, os elfos são uma raça marcada pela elegância, sabedoria e conexão profunda com a magia primordial. No entanto, com o avanço da tecnologia, muitos se dividiram entre a preservação do passado e a adaptação ao futuro. Em um mundo onde torres arcanas competem com máquinas de guerra a vapor, os elfos enfrentam o desafio de manter sua identidade em meio ao progresso."),
-    ORK("Ork", "teste");
+    HUMAN("Humano", "teste", Body.HUMANOID),
+    ELF("Elfo", "Teste", Body.HUMANOID),
+    ORK("Ork", "teste", Body.HUMANOID);
 
+    private final String name;
+    private final String description;
+    private final Body body;
 
-
-    private final String nome;
-    private final String descricao;
-
-    Race(String nome, String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
+    Race(String name, String description, Body body) {
+        this.name = name;
+        this.description = description;
+        this.body = body;
     }
 
     public static Race getClassesPorID(int id) {
@@ -44,12 +46,16 @@ public enum Race {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
+    }
+
+    public Body getBody() {
+        return body;
     }
 
 }

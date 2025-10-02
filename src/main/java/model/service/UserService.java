@@ -5,20 +5,20 @@ import javax.persistence.PersistenceException;
 import model.dao.encryption.EncryptionDAO;
 import model.dao.image.ImageDAO;
 import model.dao.user.UserDAO;
-import model.entities.persistence.encryption.Encryption;
-import model.entities.persistence.user.User;
+import model.persistence.encryption.Encryption;
+import model.persistence.user.User;
 import util.web.Validator;
 
-public class UserService {
-    private final UserDAO userDAO;
-    private final ImageDAO imageDAO;
-    private final EncryptionDAO encryptionDAO;
+    public class UserService {
+        private final UserDAO userDAO;
+        private final ImageDAO imageDAO;
+        private final EncryptionDAO encryptionDAO;
 
-    public UserService(UserDAO userDAO, ImageDAO imageDAO, EncryptionDAO encryptionDAO) {
-        this.userDAO = userDAO;
-        this.imageDAO = imageDAO;
-        this.encryptionDAO = encryptionDAO;
-    }
+        public UserService(UserDAO userDAO, ImageDAO imageDAO, EncryptionDAO encryptionDAO) {
+            this.userDAO = userDAO;
+            this.imageDAO = imageDAO;
+            this.encryptionDAO = encryptionDAO;
+        }
 
     public User authenticateUser(String emailOrNickname, String password) throws PersistenceException {
         User user = userDAO.getUserForNickname(emailOrNickname);

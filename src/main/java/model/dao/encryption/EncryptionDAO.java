@@ -1,6 +1,6 @@
 package model.dao.encryption;
 
-import model.entities.persistence.encryption.Encryption;
+import model.persistence.encryption.Encryption;
 
 public interface EncryptionDAO {
     void saveEncryption(Encryption encryption);

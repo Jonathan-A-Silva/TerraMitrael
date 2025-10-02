@@ -5,10 +5,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
-import model.entities.persistence.encryption.Encryption;
-import model.entities.persistence.user.User;
-import model.entities.persistence.user.User_;
+import model.persistence.encryption.Encryption;
+import model.persistence.user.User;
 import model.factory.connection.ConnectionFactory;
+import model.persistence.user.User_;
 import org.hibernate.Session;
 import util.dao.DAOUtil;
 
@@ -68,7 +68,7 @@ public class EncryptionDAOImpl implements EncryptionDAO {
 
     @Override
     public Encryption getEncryptionByUserId(Long userId) {
-        Session session = null;
+                Session session = null;
         Encryption encryption = null;
         try {
             session = factory.getConexao().openSession();

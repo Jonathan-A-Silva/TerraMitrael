@@ -1,6 +1,6 @@
 package model.dao.user;
 
-import model.entities.persistence.user.User;
+import model.persistence.user.User;
 
 public interface UserDAO {
 

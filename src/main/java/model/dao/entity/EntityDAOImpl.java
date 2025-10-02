@@ -1,12 +1,11 @@
 package model.dao.entity;
 
-import model.entities.persistence.entity.PersistenceEntity;
 import model.factory.connection.ConnectionFactory;
 import org.hibernate.Session;
 import util.dao.DAOUtil;
 
 public class EntityDAOImpl implements EntityDAO {
-
+    /*
     private final ConnectionFactory factory;
 
     public EntityDAOImpl() {
@@ -55,4 +54,5 @@ public class EntityDAOImpl implements EntityDAO {
             DAOUtil.closeSession(session);
         }
     }
+     */
 }

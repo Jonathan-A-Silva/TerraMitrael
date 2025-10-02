@@ -16,8 +16,8 @@ import javax.servlet.http.Part;
 
 import model.dao.image.ImageDAO;
 import model.dao.image.ImageDAOImpl;
-import model.entities.persistence.image.Image;
-import model.entities.persistence.user.User;
+import model.persistence.image.Image;
+import model.persistence.user.User;
 
 @MultipartConfig
 @WebServlet(urlPatterns = {"/save-image", "/show-user-image", "/show-user-image-nickname"})

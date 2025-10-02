@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.user.UserDAO;
 import model.dao.user.UserDAOImpl;
-import model.entities.persistence.user.User;
+import model.persistence.user.User;
 import model.exceptions.user.InvalidUserException;
 
 public class SessionValidator {

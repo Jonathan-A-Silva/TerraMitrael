@@ -1,0 +1,37 @@
+package model.enums.body;
+
+public enum BodyParts {
+
+    HEAD,
+    LEFT_EYE,
+    RIGHT_EYE,
+    LEFT_EAR,
+    RIGHT_EAR,
+    NOSE,
+    MOUTH,
+
+    BODY,
+
+    LEFT_ARM,
+    LEFT_HAND,
+    LEFT_THUMB,
+    LEFT_INDEX_FINGER,
+    LEFT_MIDDLE_FINGER,
+    LEFT_RING_FINGER,
+    LEFT_LITTLE_FINGER,
+
+    LEFT_LEG,
+    LEFT_FEET,
+
+    RIGHT_ARM,
+    RIGHT_HAND,
+    RIGHT_THUMB,
+    RIGHT_INDEX_FINGER,
+    RIGHT_MIDDLE_FINGER,
+    RIGHT_RING_FINGER,
+    RIGHT_LITTLE_FINGER,
+
+    RIGHT_LEG,
+    RIGHT_FEET
+
+}

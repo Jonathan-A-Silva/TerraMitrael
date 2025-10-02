@@ -1,6 +1,6 @@
 package util.web;
 
-import model.entities.persistence.user.User;
+import model.persistence.user.User;
 import model.enums.EntityClass;
 import model.enums.Race;
 import model.exceptions.person.InvalidPersonException;

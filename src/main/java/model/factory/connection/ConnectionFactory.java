@@ -1,5 +1,10 @@
 package model.factory.connection;
 
+import model.persistence.encryption.Encryption;
+import model.persistence.image.Image;
+import model.persistence.item.PersistenceItem;
+import model.persistence.person.Person;
+import model.persistence.user.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -11,12 +16,11 @@ public class ConnectionFactory {
 
         Configuration configuration = new Configuration();
 
-        configuration.addAnnotatedClass(model.entities.persistence.encryption.Encryption.class);
-        configuration.addAnnotatedClass(model.entities.persistence.entity.PersistenceEntity.class);
-        configuration.addAnnotatedClass(model.entities.persistence.image.Image.class);
-        configuration.addAnnotatedClass(model.entities.persistence.item.PersistenceItem.class);
-        configuration.addAnnotatedClass(model.entities.persistence.person.Person.class);
-        configuration.addAnnotatedClass(model.entities.persistence.user.User.class);
+        configuration.addAnnotatedClass(Encryption.class);
+        configuration.addAnnotatedClass(Image.class);
+        configuration.addAnnotatedClass(PersistenceItem.class);
+        configuration.addAnnotatedClass(Person.class);
+        configuration.addAnnotatedClass(User.class);
 
         configuration.configure("hibernate.cfg.xml");
 

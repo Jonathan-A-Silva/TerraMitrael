@@ -4,9 +4,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import model.entities.persistence.user.User;
-import model.entities.persistence.user.User_;
+import model.persistence.user.User;
 import model.factory.connection.ConnectionFactory;
+import model.persistence.user.User_;
 import org.hibernate.Session;
 import util.dao.DAOUtil;
 

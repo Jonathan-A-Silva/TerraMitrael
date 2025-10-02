@@ -18,9 +18,7 @@ import model.dao.person.PersonDAO;
 import model.dao.person.PersonDAOImpl;
 import model.dao.user.UserDAO;
 import model.dao.user.UserDAOImpl;
-import model.entities.persistence.entity.PersistenceEntity;
-import model.entities.persistence.person.Person;
-import model.entities.persistence.user.User;
+import model.persistence.user.User;
 import model.enums.EntityClass;
 import model.enums.Race;
 import model.exceptions.person.InvalidPersonException;
@@ -78,15 +76,7 @@ public class PersonServlet extends HttpServlet {
         try {
             Validator.validatePersonRegistration(first_name, classe, race);
 
-            PersistenceEntity entity = new PersistenceEntity(first_name, classe, race);
-            Person person = new Person(first_name, last_name, entity, user);
 
-            user.setPersons(personDAO.getPersonForUserId(user.getId()));
-            user.addPerson(person);
-
-            entityDAO.savePersistenceEntity(entity);
-            personDAO.savePerson(person);
-            userDAO.updateUser(user);
 
             responseJson = new ResponseJson(true);
         } catch (InvalidPersonException personException) {
