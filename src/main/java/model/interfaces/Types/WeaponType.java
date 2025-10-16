@@ -1,6 +1,6 @@
 package model.interfaces.Types;
 
-import java.util.List;
+import java.util.Map;
 
 import model.domain.stats.CombatStatus;
 import model.enums.DamageType;
@@ -15,6 +15,6 @@ public interface WeaponType {
 
     double getDurability();
 
-    List<DamageType> getDamageTypes();
+    Map<Float,DamageType> getDamageTypes();
 
 }

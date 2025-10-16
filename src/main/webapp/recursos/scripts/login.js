@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("login");
     const mensagemDiv = document.getElementById("mensagem");
     const pathArray = window.location.pathname.split('/');
-    const contextPath = pathArray.length > 1 ? '/' + pathArray[1] : '';
+    const contextPath = pathArray.length > 1 ? '/' + pathArray[1] : ''  ;
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();

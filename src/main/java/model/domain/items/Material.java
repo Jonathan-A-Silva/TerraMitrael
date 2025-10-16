@@ -11,7 +11,7 @@ public class Material extends Item implements MaterialType {
     private final CombatStatus combatStatus;
 
     public Material(MaterialType materialType, Resource resource) {
-        super(materialType.getName(), materialType.getDescription(), 1, 1, (resource.getWeight() * materialType.getResourcesToCraft()));
+        super(materialType.getName() + "." + resource.getName(), materialType.getDescription(), 1, 1, (resource.getWeight() * materialType.getResourcesToCraft()));
 
         if (resource.getQuantity() != materialType.getResourcesToCraft()) {
             throw new ItemException(
@@ -31,24 +31,21 @@ public class Material extends Item implements MaterialType {
 
     }
 
-    @Override
-    public int getResourcesToCraft() {
-        return materialType.getResourcesToCraft();
-    }
-
-    @Override
     public MaterialType getMaterialType() {
         return materialType;
     }
 
-    @Override
     public Resource getResource() {
         return resource;
     }
 
-    @Override
     public CombatStatus getCombatStatus() {
         return combatStatus;
+    }
+
+    @Override
+    public int getResourcesToCraft() {
+        return materialType.getResourcesToCraft();
     }
 
 }

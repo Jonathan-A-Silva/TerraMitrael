@@ -1,9 +1,6 @@
 package model.interfaces.Types;
 
-import java.util.List;
-
 import model.domain.stats.CombatStatus;
-import model.enums.DamageType;
 
 public interface ArmorType {
 
@@ -14,7 +11,5 @@ public interface ArmorType {
     CombatStatus getCombatStatus();
 
     double getDurability();
-
-    List<DamageType> getDefenseTypes();
 
 }

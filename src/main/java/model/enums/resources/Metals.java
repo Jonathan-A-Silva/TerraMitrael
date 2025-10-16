@@ -10,7 +10,13 @@ public enum Metals implements ResourceType {
             "That's a simple Metal",
             1.0f,
             1.62f,
-            new CombatStatus(0.5, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            new CombatStatus.Builder()
+                    .attack(0.5, 0.8, 0.05, 1.1, 0.2)
+                    .control(0.6, 0.4, 0.3)
+                    .defense(0.3, 0.7, 1.0, 0.5)
+                    .vitality(0.5, 0.3, 0.4, 0.6, 0.5)
+                    .magic(0.7, 0.4, 0.6, 0.8, 0.5)
+                    .build()
     );
 
     private final String name;
@@ -52,5 +58,6 @@ public enum Metals implements ResourceType {
     public CombatStatus getCombatStatus() {
         return combatStatus;
     }
+
 
 }

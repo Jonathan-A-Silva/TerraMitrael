@@ -1,16 +1,15 @@
 package model.domain.items;
 
-import java.util.List;
+import java.util.Map;
 
 import model.domain.stats.CombatStatus;
 import model.enums.DamageType;
-import model.interfaces.Types.MaterialType;
 import model.interfaces.Types.WeaponType;
 
 public class Weapon extends Item {
 
     private final CombatStatus combatStatus;
-    private final List<DamageType> damageType;
+    private final Map<Float, DamageType> damageType;
     private final int durability;
     private final int max_durability;
 
@@ -26,7 +25,7 @@ public class Weapon extends Item {
         return combatStatus;
     }
 
-    public List<DamageType> getDamageType() {
+    public Map<Float, DamageType> getDamageType() {
         return damageType;
     }
 
@@ -51,7 +50,7 @@ public class Weapon extends Item {
     private CombatStatus mergeCombatStatus(WeaponType weaponType, Material... materials) {
         CombatStatus combatStatus = new CombatStatus();
 
-        for (MaterialType material : materials) {
+        for (Material material : materials) {
             combatStatus.mergeStatus(material.getCombatStatus());
         }
 
